@@ -3,7 +3,7 @@ package com.himo.app.travel;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import com.himo.app.user.User;
+import com.himo.app.entity.user.User;
 
 public class TravelData
 {

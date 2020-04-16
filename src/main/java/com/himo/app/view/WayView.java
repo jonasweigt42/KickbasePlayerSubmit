@@ -1,7 +1,5 @@
 package com.himo.app.view;
 
-import org.vaadin.gatanaso.MultiselectComboBox;
-
 import com.himo.app.travel.TravelData;
 import com.himo.app.travel.TravelOpportunityFactory;
 import com.vaadin.flow.component.button.Button;
@@ -20,35 +18,44 @@ import com.vaadin.flow.server.VaadinSession;
 public class WayView extends VerticalLayout
 {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 4333504967133586606L;
 
 	public WayView()
 	{
 		H4 label = new H4();
 		TravelData data = (TravelData) VaadinSession.getCurrent().getAttribute(TravelData.class.getName());
 		addClassName("centered-content");
+		
+		label.setText("Wie fährst du nach " + data.getDestination() + "?");
+		ComboBox<String> select = new ComboBox<>();
+		select.setItems(TravelOpportunityFactory.getTravelOpportunityList());
+		String text = "Es wird nach Mitfahrern gesucht...";
+		Button button = new Button("los geht's!");
+		TextField takePeople = new TextField("Freie Plätze");
+		button.addClickListener(evt -> Notification.show(text));
+		add(label, select, takePeople, button);
 
-		if (data.getUser().isFavoriteFahrer())
-		{
-			label.setText("Wie fährst du nach " + data.getDestination() + "?");
-			ComboBox<String> select = new ComboBox<>();
-			select.setItems(TravelOpportunityFactory.getTravelOpportunityList());
-			String text = "Es wird nach Mitfahrern gesucht...";
-			Button button = new Button("los geht's!");
-			TextField takePeople = new TextField("Freie Plätze");
-			button.addClickListener(evt -> Notification.show(text));
-			add(label, select, takePeople, button);
-		} else
-		{
-			label.setText("Wie möchtest du nach " + data.getDestination() + " kommen?");
-			MultiselectComboBox<String> select = new MultiselectComboBox<>();
-			select.setItems(TravelOpportunityFactory.getTravelOpportunityList());
-			String text = "Der kürzeste Weg von " + data.getStart() + " nach " + data.getDestination()
-					+ " wird berechnet und es wird nach Fahrern gesucht...";
-			Button button = new Button("los geht's!");
-			button.addClickListener(evt -> Notification.show(text));
-			add(label, select, button);
-		}
+//		if (data.getUser().isFavoriteFahrer())
+//		{
+//			label.setText("Wie fährst du nach " + data.getDestination() + "?");
+//			ComboBox<String> select = new ComboBox<>();
+//			select.setItems(TravelOpportunityFactory.getTravelOpportunityList());
+//			String text = "Es wird nach Mitfahrern gesucht...";
+//			Button button = new Button("los geht's!");
+//			TextField takePeople = new TextField("Freie Plätze");
+//			button.addClickListener(evt -> Notification.show(text));
+//			add(label, select, takePeople, button);
+//		} else
+//		{
+//			label.setText("Wie möchtest du nach " + data.getDestination() + " kommen?");
+//			MultiselectComboBox<String> select = new MultiselectComboBox<>();
+//			select.setItems(TravelOpportunityFactory.getTravelOpportunityList());
+//			String text = "Der kürzeste Weg von " + data.getStart() + " nach " + data.getDestination()
+//					+ " wird berechnet und es wird nach Fahrern gesucht...";
+//			Button button = new Button("los geht's!");
+//			button.addClickListener(evt -> Notification.show(text));
+//			add(label, select, button);
+//		}
 
 	}
 

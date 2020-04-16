@@ -1,21 +1,30 @@
-package com.himo.app.user;
+package com.himo.app.entity.user;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table
 public class User
 {
 
-	private String userName;
-	private String password;
+	@Id
+	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	@Column
 	private String firstName;
+	@Column
 	private String lastName;
-	private boolean isFavoriteFahrer;
+	@Column
+	private String userName;
+	@Column
+	private String password;
 	
-	public User(String userName, String password, String firstName, String lastName)
-	{
-		this.userName = userName;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
 	public String getUserName()
 	{
 		return userName;
@@ -48,14 +57,5 @@ public class User
 	{
 		this.lastName = lastName;
 	}
-	public boolean isFavoriteFahrer()
-	{
-		return isFavoriteFahrer;
-	}
-	public void setIsFavoriteFahrer(Boolean isFavoriteFahrer)
-	{
-		this.isFavoriteFahrer = isFavoriteFahrer;
-	}
-	
 	
 }

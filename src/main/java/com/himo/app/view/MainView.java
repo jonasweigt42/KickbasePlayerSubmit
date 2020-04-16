@@ -2,13 +2,13 @@ package com.himo.app.view;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.himo.app.GreetService;
+import com.himo.app.entity.user.User;
+import com.himo.app.service.UserService;
 import com.himo.app.travel.TravelData;
-import com.himo.app.user.User;
-import com.himo.app.user.UserFactory;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
@@ -44,6 +44,8 @@ import com.vaadin.flow.theme.lumo.Lumo;
 public class MainView extends VerticalLayout
 {
 
+	private static final long serialVersionUID = -4263611319380233369L;
+
 	/**
 	 * Construct a new Vaadin view.
 	 * <p>
@@ -52,9 +54,8 @@ public class MainView extends VerticalLayout
 	 * @param service The message service. Automatically injected Spring managed
 	 *                bean.
 	 */
-	public MainView(@Autowired GreetService service)
+	public MainView(@Autowired UserService userService)
 	{
-		User user = UserFactory.getUserByUserName("eva");
 		H4 headline = new H4("Eva" + ", Wo möchtest du hinfahren?");
 		addClassName("centered-content");
 
@@ -73,8 +74,10 @@ public class MainView extends VerticalLayout
 		Button nowButton = new Button("Jetzt");
 		nowButton.addClickListener(evt -> setTimeValuesForNow(datePicker, timePicker));
 		Button button = new Button("los geht's!");
+		
+		List<User> users = userService.getUsers();
 
-		button.addClickListener(evt -> saveAndNavigate(user, start.getValue(), dest.getValue(), datePicker.getValue(),
+		button.addClickListener(evt -> saveAndNavigate(users.get(0), start.getValue(), dest.getValue(), datePicker.getValue(),
 				timePicker.getValue()));
 
 		add(headline, start, dest, nowButton, datePicker, timePicker, button);
