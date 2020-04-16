@@ -1,14 +1,14 @@
-package com.himo.app;
+package com.himo.app.view;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.himo.app.GreetService;
 import com.himo.app.travel.TravelData;
 import com.himo.app.user.User;
 import com.himo.app.user.UserFactory;
-import com.himo.app.view.WayView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
