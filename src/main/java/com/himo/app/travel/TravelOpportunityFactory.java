@@ -17,14 +17,12 @@ public class TravelOpportunityFactory
 	{
 		List<String> travelOpportunityList = new ArrayList<>();
 		
-		travelOpportunityList.add(("Auto"));
-		travelOpportunityList.add(("Taxi"));
+		travelOpportunityList.add(("E-Carsharing"));
 		travelOpportunityList.add(("Carsharing"));
 		travelOpportunityList.add(("Bikesharing"));
 		travelOpportunityList.add(("Bus"));
-		travelOpportunityList.add(("Straßenbahn"));
 		travelOpportunityList.add(("Mitfahrgelegenheit"));
-		travelOpportunityList.add(("Helikopter"));
+		travelOpportunityList.add(("autonomer Kleinbus"));
 		return travelOpportunityList;
 	}
 }

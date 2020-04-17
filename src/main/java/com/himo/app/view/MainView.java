@@ -4,8 +4,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.himo.app.component.Logo;
 import com.himo.app.entity.user.User;
 import com.himo.app.service.UserService;
 import com.himo.app.travel.TravelData;
@@ -46,6 +49,10 @@ public class MainView extends VerticalLayout
 
 	private static final long serialVersionUID = -4263611319380233369L;
 
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private Logo logo;
 	/**
 	 * Construct a new Vaadin view.
 	 * <p>
@@ -54,17 +61,18 @@ public class MainView extends VerticalLayout
 	 * @param service The message service. Automatically injected Spring managed
 	 *                bean.
 	 */
-	public MainView(@Autowired UserService userService)
+	@PostConstruct
+	private void init()
 	{
 		H4 headline = new H4("Eva" + ", Wo möchtest du hinfahren?");
 		addClassName("centered-content");
 
 		TextField start = new TextField("Start");
-		start.setPrefixComponent(new Icon(VaadinIcon.ARROW_CIRCLE_RIGHT));
-		start.setValue("Mauterndorf");
+//		start.setPrefixComponent(new Icon(VaadinIcon.ARROW_CIRCLE_RIGHT));
+		start.setValue("Staig 3, Mauterndorf");
 		TextField dest = new TextField("Ziel");
-		dest.setPrefixComponent(new Icon(VaadinIcon.ARROW_CIRCLE_LEFT));
-		dest.setValue("Tamsweg");
+//		dest.setPrefixComponent(new Icon(VaadinIcon.ARROW_CIRCLE_LEFT));
+		dest.setValue("Kirchweg 5, Tamsweg");
 
 		DatePicker datePicker = new DatePicker();
 		datePicker.setValue(LocalDate.of(2020, 04, 20));
@@ -80,7 +88,7 @@ public class MainView extends VerticalLayout
 		button.addClickListener(evt -> saveAndNavigate(users.get(0), start.getValue(), dest.getValue(), datePicker.getValue(),
 				timePicker.getValue()));
 
-		add(headline, start, dest, nowButton, datePicker, timePicker, button);
+		add(logo, headline, start, dest, nowButton, datePicker, timePicker, button);
 	}
 
 	private void setTimeValuesForNow(DatePicker datePicker, TimePicker timePicker)
