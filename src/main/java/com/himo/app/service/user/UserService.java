@@ -1,4 +1,4 @@
-package com.himo.app.service;
+package com.himo.app.service.user;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.himo.app.service;
+package com.himo.app.service.user;
 
 import java.util.List;
 
@@ -13,12 +13,12 @@ public class UserServiceImpl implements UserService
 {
 
 	@Autowired
-	private UserDao userDao;
+	private UserDao dao;
 
 	@Override
 	public List<User> getUsers()
 	{
-		return userDao.getUsers();
+		return dao.getUsers();
 	}
 
 }

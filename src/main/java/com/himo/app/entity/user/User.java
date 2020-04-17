@@ -25,6 +25,10 @@ public class User
 	@Column
 	private String password;
 	
+	public int getId()
+	{
+		return id;
+	}
 	public String getUserName()
 	{
 		return userName;

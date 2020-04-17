@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.himo.app.component.Logo;
 import com.himo.app.entity.user.User;
-import com.himo.app.service.UserService;
+import com.himo.app.service.user.UserService;
 import com.himo.app.travel.TravelData;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
