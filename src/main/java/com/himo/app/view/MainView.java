@@ -1,30 +1,27 @@
 package com.himo.app.view;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.himo.app.component.Logo;
-import com.himo.app.entity.user.User;
-import com.himo.app.service.user.UserService;
-import com.himo.app.travel.TravelData;
-import com.vaadin.flow.component.UI;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.datepicker.DatePicker;
-import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.html.H4;
-import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.component.timepicker.TimePicker;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.HasComponents;
+import com.vaadin.flow.component.applayout.AppLayout;
+import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.component.tabs.TabsVariant;
+import com.vaadin.flow.router.RouteConfiguration;
+import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
-import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
@@ -39,69 +36,83 @@ import com.vaadin.flow.theme.lumo.Lumo;
  * A new instance of this class is created for every new user and every browser
  * tab/window.
  */
-@Route
+
 @PWA(name = "High Mobility Application", shortName = "HiMo")
-@CssImport("./styles/shared-styles.css")
-@CssImport(value = "./styles/vaadin-text-field-styles.css", themeFor = "vaadin-text-field")
+@JsModule("./styles/shared-styles.js")
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
-public class MainView extends VerticalLayout
+public class MainView extends AppLayout
 {
 
-	private static final long serialVersionUID = -4263611319380233369L;
-
-	@Autowired
-	private UserService userService;
+	private static final long serialVersionUID = 1L;
+	private Tabs menu;
+	
 	@Autowired
 	private Logo logo;
-	/**
-	 * Construct a new Vaadin view.
-	 * <p>
-	 * Build the initial UI state for the user accessing the application.
-	 *
-	 * @param service The message service. Automatically injected Spring managed
-	 *                bean.
-	 */
+
 	@PostConstruct
-	private void init()
+	public void init() throws IOException, URISyntaxException
 	{
-		H4 headline = new H4("Eva" + ", Wo möchtest du hinfahren?");
-		addClassName("centered-content");
-
-		TextField start = new TextField("Start");
-//		start.setPrefixComponent(new Icon(VaadinIcon.ARROW_CIRCLE_RIGHT));
-		start.setValue("Staig 3, Mauterndorf");
-		TextField dest = new TextField("Ziel");
-//		dest.setPrefixComponent(new Icon(VaadinIcon.ARROW_CIRCLE_LEFT));
-		dest.setValue("Kirchweg 5, Tamsweg");
-
-		DatePicker datePicker = new DatePicker();
-		datePicker.setValue(LocalDate.of(2020, 04, 20));
-		TimePicker timePicker = new TimePicker();
-		timePicker.setValue(LocalTime.of(8, 30));
-
-		Button nowButton = new Button("Jetzt");
-		nowButton.addClickListener(evt -> setTimeValuesForNow(datePicker, timePicker));
-		Button button = new Button("los geht's!");
-		
-		List<User> users = userService.getUsers();
-
-		button.addClickListener(evt -> saveAndNavigate(users.get(0), start.getValue(), dest.getValue(), datePicker.getValue(),
-				timePicker.getValue()));
-
-		add(logo, headline, start, dest, nowButton, datePicker, timePicker, button);
+		setPrimarySection(Section.DRAWER);
+		addToNavbar(false, new DrawerToggle());
+		addToNavbar(false, logo);
+		menu = createMenuTabs();
+		addToDrawer(menu);
 	}
 
-	private void setTimeValuesForNow(DatePicker datePicker, TimePicker timePicker)
+	private static Tabs createMenuTabs()
 	{
-		datePicker.setValue(LocalDate.now());
-		timePicker.setValue(LocalTime.now());
+		final Tabs tabs = new Tabs();
+		tabs.setOrientation(Tabs.Orientation.VERTICAL);
+		tabs.addThemeVariants(TabsVariant.LUMO_CENTERED);
+		tabs.setId("tabs");
+		tabs.add(getAvailableTabs());
+		return tabs;
 	}
 
-	private void saveAndNavigate(User user, String start, String destination, LocalDate date, LocalTime time)
+	private static Tab[] getAvailableTabs()
 	{
-		VaadinSession.getCurrent().setAttribute(TravelData.class.getName(), new TravelData(user, start, destination,
-				date, time));
-		UI.getCurrent().navigate(WayView.class);
+		final List<Tab> tabs = new ArrayList<>();
+		tabs.add(createTab("Start", StartView.class));
+		tabs.add(createTab("Way", WayView.class));
+//		tabs.add(createTab("Players", PlayersView.class));
+//		tabs.add(createTab("GameStats", GameStatsView.class));
+		return tabs.toArray(new Tab[tabs.size()]);
+	}
+
+	private static Tab createTab(String title, Class<? extends Component> viewClass)
+	{
+		return createTab(populateLink(new RouterLink(null, viewClass), title));
+	}
+
+	private static Tab createTab(Component content)
+	{
+		final Tab tab = new Tab();
+		tab.add(content);
+		return tab;
+	}
+
+	private static <T extends HasComponents> T populateLink(T a, String title)
+	{
+		a.add(title);
+		return a;
+	}
+
+	@Override
+	protected void afterNavigation()
+	{
+		super.afterNavigation();
+		selectTab();
+	}
+
+	private void selectTab()
+	{
+		String target = RouteConfiguration.forSessionScope().getUrl(getContent().getClass());
+		Optional<Component> tabToSelect = menu.getChildren().filter(tab ->
+		{
+			Component child = tab.getChildren().findFirst().get();
+			return child instanceof RouterLink && ((RouterLink) child).getHref().equals(target);
+		}).findFirst();
+		tabToSelect.ifPresent(tab -> menu.setSelectedTab((Tab) tab));
 	}
 
 }
