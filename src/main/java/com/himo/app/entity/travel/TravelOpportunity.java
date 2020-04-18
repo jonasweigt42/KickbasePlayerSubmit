@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "TRAVEL_OPPORTUNITY")
 public class TravelOpportunity
 {
 
@@ -27,4 +27,10 @@ public class TravelOpportunity
 	{
 		return name;
 	}
+	@Override
+	public String toString()
+	{
+		return name;
+	}
+	
 }

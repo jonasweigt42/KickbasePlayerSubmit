@@ -1,5 +1,7 @@
 package com.himo.app.view;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +41,10 @@ public class WayView extends VerticalLayout
 		addClassName("centered-content");
 		
 		label.setText("Wie möchtest du nach " + data.getDestination() + " kommen?");
-		//TODO convert to strings
-		MultiselectComboBox<TravelOpportunity> select = new MultiselectComboBox<>();
-		select.setItems(travelOpportunityService.getTravelOpportunities());
+		
+		MultiselectComboBox<String> select = new MultiselectComboBox<>();
+		select.setItems(travelOpportunityService.getTravelOpportunityNames());
+		
 		String text = "Der kürzeste Weg von " + data.getStart() + " nach " + data.getDestination()
 				+ " wird berechnet und es wird nach Fahrern gesucht...";
 		Button button = new Button("los geht's!");

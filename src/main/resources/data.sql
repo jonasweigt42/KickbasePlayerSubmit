@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS travelopportunity;
+DROP TABLE IF EXISTS USER;
+DROP TABLE IF EXISTS TRAVEL_OPPORTUNITY;
  
-CREATE TABLE user (
+CREATE TABLE USER (
   id INT AUTO_INCREMENT  PRIMARY KEY,
   first_name VARCHAR(250) NOT NULL,
   last_name VARCHAR(250) NOT NULL,
@@ -9,21 +9,21 @@ CREATE TABLE user (
   password VARCHAR(250) NOT NULL
 );
  
-INSERT INTO user (first_name, last_name, user_name, password) VALUES
+INSERT INTO USER (first_name, last_name, user_name, password) VALUES
   ('Jonas', 'Weigt', 'jonas','jonas'),
   ('Eva', 'Weigt', 'eva', 'eva'),
   ('Admin', 'Admin', 'admin', 'admin');
   
- CREATE TABLE travelopportunity (
+ CREATE TABLE TRAVEL_OPPORTUNITY (
   id INT AUTO_INCREMENT  PRIMARY KEY,
   name VARCHAR(250) NOT NULL
  );
  
- INSERT INTO travelopportunity (name) VALUES
+ INSERT INTO TRAVEL_OPPORTUNITY (name) VALUES
  ('Mitfahrgelegenheit'),
- ('E-Car Sharing'),
- ('E-Bike'), 
- ('E-Scooter'),
+ ('eCarsharing'),
+ ('eBike'), 
+ ('eScooter'),
  ('Bus'), 
  ('autonomer Kleinbus');
  

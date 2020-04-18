@@ -1,5 +1,6 @@
 package com.himo.app.service.travel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,18 @@ public class TravelOpportunityServiceImpl implements TravelOpportunityService
 	{
 		return dao.getTravelOpportunities();
 	}
+
+	@Override
+	public List<String> getTravelOpportunityNames()
+	{
+		List<String> result = new ArrayList<>();
+		List<TravelOpportunity> travels = dao.getTravelOpportunities();
+		for(TravelOpportunity t : travels)
+		{
+			result.add(t.getName());
+		}
+		return result;
+	}
+	
 
 }
