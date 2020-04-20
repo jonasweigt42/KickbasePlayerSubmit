@@ -1,5 +1,7 @@
 package com.himo.app.entity.user;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +11,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "USER")
-public class User
+public class User implements Serializable
 {
+
+	private static final long serialVersionUID = 2517077877917932578L;
 
 	@Id
 	@Column

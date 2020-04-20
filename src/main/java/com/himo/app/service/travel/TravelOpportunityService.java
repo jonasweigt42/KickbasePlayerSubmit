@@ -6,7 +6,7 @@ import com.himo.app.entity.travel.TravelOpportunity;
 
 public interface TravelOpportunityService
 {
-	List<TravelOpportunity> getTravelOpportunities();
+	List<TravelOpportunity> findAll();
 	
 	List<String> getTravelOpportunityNames();
 }

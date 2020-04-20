@@ -2,13 +2,36 @@ package com.himo.app.entity.user;
 
 import java.util.List;
 
-public interface UserDao
+import javax.annotation.PostConstruct;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.himo.app.entity.GenericDao;
+
+@Repository
+public class UserDao extends GenericDao<User>
 {
 
-	List<User> getUsers();
+	@PostConstruct
+	public void init()
+	{
+		setClazz(User.class);
+	}
 	
-	void save(User user);
-	
-	User getUserByUserName(String userName);
-}
+	@Transactional
+	public User getUserByUserName(String userName)
+	{
+		List<User> users = findAll();
+		
+		for(User user : users)
+		{
+			if(user.getUserName().equals(userName))
+			{
+				return user;
+			}
+		}
+		return null;
+	}
 
+}

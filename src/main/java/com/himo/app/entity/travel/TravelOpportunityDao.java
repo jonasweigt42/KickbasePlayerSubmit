@@ -1,9 +1,11 @@
 package com.himo.app.entity.travel;
 
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
-public interface TravelOpportunityDao
+import com.himo.app.entity.GenericDao;
+
+@Repository
+public class TravelOpportunityDao extends GenericDao<TravelOpportunity>
 {
 
-	List<TravelOpportunity> getTravelOpportunities();
 }

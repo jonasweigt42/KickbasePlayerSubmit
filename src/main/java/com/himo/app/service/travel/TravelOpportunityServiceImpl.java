@@ -17,16 +17,16 @@ public class TravelOpportunityServiceImpl implements TravelOpportunityService
 	private TravelOpportunityDao dao;
 	
 	@Override
-	public List<TravelOpportunity> getTravelOpportunities()
+	public List<TravelOpportunity> findAll()
 	{
-		return dao.getTravelOpportunities();
+		return dao.findAll();
 	}
 
 	@Override
 	public List<String> getTravelOpportunityNames()
 	{
 		List<String> result = new ArrayList<>();
-		List<TravelOpportunity> travels = dao.getTravelOpportunities();
+		List<TravelOpportunity> travels = dao.findAll();
 		for(TravelOpportunity t : travels)
 		{
 			result.add(t.getName());

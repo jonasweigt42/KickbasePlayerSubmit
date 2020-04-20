@@ -6,7 +6,7 @@ import com.himo.app.entity.user.User;
 
 public interface UserService
 {
-	List<User> getUsers();
+	List<User> findAll();
 	
 	User getUserByUserName(String userName);
 }
