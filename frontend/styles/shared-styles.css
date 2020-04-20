@@ -10,3 +10,8 @@
   max-width: 250px;
 }
 
+.right {
+	position: absolute;
+	right: 0;
+}
+

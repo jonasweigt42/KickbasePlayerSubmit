@@ -28,6 +28,28 @@ public class UserDaoImpl implements UserDao
 		
 		return session.createQuery(criteria).getResultList();
 	}
+
+	@Transactional
+	@Override
+	public User getUserByUserName(String userName)
+	{
+		Session session = entityManager.unwrap(Session.class);
+		CriteriaQuery<User> criteria = session.getCriteriaBuilder().createQuery(User.class);
+
+		criteria.from(User.class);
+		
+		List<User> users = session.createQuery(criteria).getResultList();
+		
+		for(User user : users)
+		{
+			if(user.getUserName().equals(userName))
+			{
+				return user;
+			}
+		}
+		return null;
+	}
+
 	
 	@Transactional
 	@Override

@@ -8,8 +8,10 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.spring.annotation.UIScope;
 
 @Component
+@UIScope
 public class Logo extends HorizontalLayout
 {
 
@@ -21,6 +23,7 @@ public class Logo extends HorizontalLayout
 		Icon icon = new Icon(VaadinIcon.HOME);
 		Label label = new Label("HiMo");
 		add(icon, label);
+		
 	}
 	
 }

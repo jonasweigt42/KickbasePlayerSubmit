@@ -7,21 +7,28 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.himo.app.component.Login;
 import com.himo.app.component.Logo;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
+import com.vaadin.flow.spring.annotation.UIScope;
+import com.vaadin.flow.spring.annotation.VaadinSessionScope;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
 
@@ -39,7 +46,9 @@ import com.vaadin.flow.theme.lumo.Lumo;
 
 @PWA(name = "High Mobility Application", shortName = "HiMo")
 @JsModule("./styles/shared-styles.js")
+@CssImport("./styles/shared-styles.css")
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
+@UIScope
 public class MainView extends AppLayout
 {
 
@@ -48,6 +57,9 @@ public class MainView extends AppLayout
 	
 	@Autowired
 	private Logo logo;
+	
+	@Autowired
+	private Login login;
 
 	@PostConstruct
 	public void init() throws IOException, URISyntaxException
@@ -55,10 +67,11 @@ public class MainView extends AppLayout
 		setPrimarySection(Section.DRAWER);
 		addToNavbar(false, new DrawerToggle());
 		addToNavbar(false, logo);
+		addToNavbar(login.getButton());
 		menu = createMenuTabs();
 		addToDrawer(menu);
 	}
-
+	
 	private static Tabs createMenuTabs()
 	{
 		final Tabs tabs = new Tabs();
