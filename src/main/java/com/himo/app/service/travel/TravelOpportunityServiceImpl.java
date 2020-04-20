@@ -3,18 +3,26 @@ package com.himo.app.service.travel;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.himo.app.entity.GenericDao;
 import com.himo.app.entity.travel.TravelOpportunity;
-import com.himo.app.entity.travel.TravelOpportunityDao;
 
 @Service
 public class TravelOpportunityServiceImpl implements TravelOpportunityService
 {
 
 	@Autowired
-	private TravelOpportunityDao dao;
+	private GenericDao<TravelOpportunity> dao;
+	
+	@PostConstruct
+	public void init()
+	{
+		dao.setClazz(TravelOpportunity.class);
+	}
 	
 	@Override
 	public List<TravelOpportunity> findAll()
