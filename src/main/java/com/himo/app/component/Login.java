@@ -19,7 +19,7 @@ public class Login extends LoginOverlay
 {
 
 	private static final long serialVersionUID = -3124840772943883433L;
-	
+
 	private Button loginButton = new Button();
 	private boolean loggedIn = false;
 	@Autowired
@@ -29,8 +29,8 @@ public class Login extends LoginOverlay
 	public void init()
 	{
 		loginButton.setText("Login");
-		//TODO toggle
-		loginButton.addClickListener(e -> setOpened(true));
+		// TODO toggle
+		loginButton.addClickListener(e -> log());
 		loginButton.setClassName("right");
 		addLoginListener(new ComponentEventListener<LoginEvent>()
 		{
@@ -41,32 +41,42 @@ public class Login extends LoginOverlay
 			{
 				String username = event.getUsername();
 				User user = userService.getUserByUserName(username);
-				if(event.getPassword().equals(user.getPassword()))
+				if (event.getPassword().equals(user.getPassword()))
 				{
-					switchButtonLabel();
+					toggleButtonLabel();
 					close();
 				}
 			}
 		});
 		setTitle("HiMo");
-		setDescription("Your application for high mobility");
+		setDescription("Willkommen! Bitte melde dich kurz an und dann kann es schon losgehen!");
 		LoginI18n i18n = LoginI18n.createDefault();
 		setI18n(i18n);
 	}
-	
-	public void switchButtonLabel()
+
+	private void log()
+	{
+		if (loggedIn)
+		{
+			toggleButtonLabel();
+		} else
+		{
+			setOpened(true);
+		}
+	}
+
+	private void toggleButtonLabel()
 	{
 		loggedIn = !loggedIn;
-		if(loggedIn)
+		if (loggedIn)
 		{
 			loginButton.setText("Logout");
-		}
-		else
+		} else
 		{
 			loginButton.setText("Login");
 		}
 	}
-	
+
 	public Button getButton()
 	{
 		return loginButton;
