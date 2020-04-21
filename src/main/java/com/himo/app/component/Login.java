@@ -59,6 +59,8 @@ public class Login extends LoginOverlay
 		if (loggedIn)
 		{
 			toggleButtonLabel();
+			userService.setLoggenInUser(null);
+			setOpened(false);
 		} else
 		{
 			setOpened(true);
@@ -80,6 +82,11 @@ public class Login extends LoginOverlay
 	public Button getButton()
 	{
 		return loginButton;
+	}
+
+	public boolean isLoggedIn()
+	{
+		return loggedIn;
 	}
 
 }

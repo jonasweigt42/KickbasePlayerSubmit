@@ -13,4 +13,6 @@ public interface UserService
 	void setLoggenInUser(User loggenInUser);
 	
 	User getLoggenInUser();
+	
+	void update(User user);
 }

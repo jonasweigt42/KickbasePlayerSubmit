@@ -58,4 +58,10 @@ public class UserServiceImpl implements UserService
 		this.loggenInUser = loggenInUser;
 	}
 
+	@Override
+	public void update(User user)
+	{
+		dao.update(user);
+	}
+
 }
