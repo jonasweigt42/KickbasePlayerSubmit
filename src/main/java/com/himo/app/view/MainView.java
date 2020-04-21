@@ -82,7 +82,7 @@ public class MainView extends AppLayout
 	{
 		final List<Tab> tabs = new ArrayList<>();
 		tabs.add(createTab("Start", StartView.class));
-		tabs.add(createTab("Fahrt", ChooseDriverView.class));
+		tabs.add(createTab("Fahrt", ChooseWayView.class));
 //		tabs.add(createTab("Players", PlayersView.class));
 //		tabs.add(createTab("GameStats", GameStatsView.class));
 		return tabs.toArray(new Tab[tabs.size()]);
