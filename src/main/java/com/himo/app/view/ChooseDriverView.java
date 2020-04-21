@@ -13,10 +13,12 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.spring.annotation.UIScope;
 
 @Route(value = "chooseDriver", layout = MainView.class)
 @CssImport("./styles/shared-styles.css")
 @CssImport(value = "./styles/vaadin-text-field-styles.css", themeFor = "vaadin-text-field")
+@UIScope
 public class ChooseDriverView extends VerticalLayout
 {
 
@@ -24,33 +26,16 @@ public class ChooseDriverView extends VerticalLayout
 
 	@Autowired
 	private UserService userService;
-	
 
 	@PostConstruct
 	public void init()
 	{
-		H4 label = new H4();
-		addClassName("centered-content");
 		User user = userService.getLoggenInUser();
-		if(user != null)
-		{
-			label = new H4("Hi " + user.getFirstName() + "! Bist du Fahrer oder Mitfahrer?");
-		}
-		else
-		{
-			label = new H4("Hi Gast! Bist du Fahrer oder Mitfahrer?");
-		}
 		ComboBox<String> comboBox = new ComboBox<>();
 		comboBox.setItems("Fahrer", "Mitfahrer");
-		
 
-//		Checkbox checkBox = new Checkbox("als Favorit markieren");
-//		checkBox.setEnabled(false);
-//		
-//		comboBox.addValueChangeListener(evt -> checkBox.setEnabled(true));
-		
 		Button button = new Button("los geht's!");
-		button.addClickListener(evt -> 
+		button.addClickListener(evt ->
 		{
 			boolean bool = calcIsFahrer(comboBox.getValue());
 			user.setFahrer(bool);
@@ -58,19 +43,38 @@ public class ChooseDriverView extends VerticalLayout
 			userService.update(user);
 			navigate();
 		});
-		
+
+		H4 label = new H4();
+		addClassName("centered-content");
+
+		if (user != null)
+		{
+			label = new H4("Hi " + user.getFirstName() + "! Bist du Fahrer oder Mitfahrer?");
+		} else
+		{
+			comboBox.setVisible(false);
+			button.setVisible(false);
+			label = new H4("Hi! Bitte log dich erst ein, bevor es weitergeht");
+
+		}
+
+//		Checkbox checkBox = new Checkbox("als Favorit markieren");
+//		checkBox.setEnabled(false);
+//		
+//		comboBox.addValueChangeListener(evt -> checkBox.setEnabled(true));
+
 		add(label, comboBox, button);
 	}
-	
+
 	private boolean calcIsFahrer(String comboBoxValue)
 	{
-		if(comboBoxValue.equals("Fahrer"))
+		if (comboBoxValue.equals("Fahrer"))
 		{
 			return true;
 		}
 		return false;
 	}
-	
+
 	private void navigate()
 	{
 		UI.getCurrent().navigate(WayView.class);

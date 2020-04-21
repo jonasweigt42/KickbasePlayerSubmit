@@ -50,10 +50,10 @@ public class MainView extends AppLayout
 
 	private static final long serialVersionUID = 1L;
 	private Tabs menu;
-	
+
 	@Autowired
 	private Logo logo;
-	
+
 	@Autowired
 	private Login login;
 
@@ -67,8 +67,8 @@ public class MainView extends AppLayout
 		menu = createMenuTabs();
 		addToDrawer(menu);
 	}
-	
-	private static Tabs createMenuTabs()
+
+	private Tabs createMenuTabs()
 	{
 		final Tabs tabs = new Tabs();
 		tabs.setOrientation(Tabs.Orientation.VERTICAL);
@@ -78,7 +78,7 @@ public class MainView extends AppLayout
 		return tabs;
 	}
 
-	private static Tab[] getAvailableTabs()
+	private Tab[] getAvailableTabs()
 	{
 		final List<Tab> tabs = new ArrayList<>();
 		tabs.add(createTab("Start", StartView.class));
@@ -88,19 +88,19 @@ public class MainView extends AppLayout
 		return tabs.toArray(new Tab[tabs.size()]);
 	}
 
-	private static Tab createTab(String title, Class<? extends Component> viewClass)
+	private Tab createTab(String title, Class<? extends Component> viewClass)
 	{
 		return createTab(populateLink(new RouterLink(null, viewClass), title));
 	}
 
-	private static Tab createTab(Component content)
+	private Tab createTab(Component content)
 	{
 		final Tab tab = new Tab();
 		tab.add(content);
 		return tab;
 	}
 
-	private static <T extends HasComponents> T populateLink(T a, String title)
+	private <T extends HasComponents> T populateLink(T a, String title)
 	{
 		a.add(title);
 		return a;

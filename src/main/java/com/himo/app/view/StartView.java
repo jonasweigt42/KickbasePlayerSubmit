@@ -8,11 +8,13 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.shared.Registration;
+import com.vaadin.flow.spring.annotation.UIScope;
 
 @RouteAlias(value = "", layout = MainView.class)
 @Route(value = "start", layout = MainView.class)
 @PageTitle("Start")
 @CssImport("./styles/shared-styles.css")
+@UIScope
 public class StartView extends VerticalLayout
 {
 
