@@ -35,32 +35,31 @@ public class WayView extends VerticalLayout
 	@PostConstruct
 	public void init()
 	{
-		H4 label = new H4();
+//		H4 label = new H4();
 		addClassName("centered-content");
 		
-		User user = userInfo.getLoggedInUser();
-		if(user.isFahrer())
-		{
-			label.setText("Wie fährst du nach Tamsweg?");
-			ComboBox<String> select = new ComboBox<>();
-			select.setItems(travelOpportunityService.getTravelOpportunityNames());
-			String text = "Es wird nach Mitfahrern gesucht...";
-			Button button = new Button("los geht's!");
-			TextField takePeople = new TextField("Freie Plätze");
-			button.addClickListener(evt -> Notification.show(text));
-			add(label, select, takePeople, button);
-		}
-		else
-		{
-			label.setText("Wie möchtest du nach Tamsweg kommen?");
-			MultiselectComboBox<String> select = new MultiselectComboBox<>();
-			select.setItems(travelOpportunityService.getTravelOpportunityNames());
-			String text = "Der kürzeste Weg von Marapfarr nach Tamsweg wird berechnet und es wird nach Fahrern gesucht...";
-			Button button = new Button("los geht's!");
-			button.addClickListener(evt -> Notification.show(text));
-			add(label, select, button);
-		}
-
+//		User user = userInfo.getLoggedInUser();
+//		if(user.isFahrer())
+//		{
+//			label.setText("Wie fährst du nach Tamsweg?");
+//			ComboBox<String> select = new ComboBox<>();
+//			select.setItems(travelOpportunityService.getTravelOpportunityNames());
+//			String text = "Es wird nach Mitfahrern gesucht...";
+//			Button button = new Button("los geht's!");
+//			TextField takePeople = new TextField("Freie Plätze");
+//			button.addClickListener(evt -> Notification.show(text));
+//			add(label, select, takePeople, button);
+//		}
+//		else
+//		{
+//			label.setText("Wie möchtest du nach Tamsweg kommen?");
+//			MultiselectComboBox<String> select = new MultiselectComboBox<>();
+//			select.setItems(travelOpportunityService.getTravelOpportunityNames());
+//			String text = "Der kürzeste Weg von Marapfarr nach Tamsweg wird berechnet und es wird nach Fahrern gesucht...";
+//			Button button = new Button("los geht's!");
+//			button.addClickListener(evt -> Notification.show(text));
+//			add(label, select, button);
+//		}
 	}
 
 }

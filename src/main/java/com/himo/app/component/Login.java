@@ -27,7 +27,7 @@ public class Login extends LoginOverlay
 	@PostConstruct
 	public void init()
 	{
-		loginButton.setText("Login");
+		setButtonLabel();
 		loginButton.addClickListener(e -> log());
 		loginButton.setClassName("right");
 		addLoginListener(new ComponentEventListener<LoginEvent>()

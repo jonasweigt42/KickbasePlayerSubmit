@@ -1,7 +1,4 @@
-# Project Base for Vaadin and Spring Boot
-
-This project can be used as a starting point to create your own Vaadin application with Spring Boot.
-It contains all the necessary configuration and some placeholder files to get you started.
+# Project Base with Vaadin and Spring Boot
 
 The best way to create your own project based on this starter is [start.vaadin.com](https://start.vaadin.com/) - you can get only the necessary parts and choose the package naming you want to use.
 
@@ -22,3 +19,9 @@ To run Integration Tests, execute `mvn verify -Pintegration-tests`.
 - [Vaadin Flow](https://vaadin.com/flow) documentation
 - [Using Vaadin and Spring](https://vaadin.com/docs/v14/flow/spring/tutorial-spring-basic.html) article
 
+## Database
+
+The database is a local H2 database. Open the H2 console while the server is running on 
+localhost:8080/h2-console
+
+If your put a "data.sql" in src/main/resources, it will be executed every time you start the server

@@ -54,9 +54,6 @@ public class ChooseWayView extends VerticalLayout
 			});
 			
 		}
-//		else if(user == null)
-//		{
-//		}
 		else
 		{
 			comboBox.setVisible(false);
