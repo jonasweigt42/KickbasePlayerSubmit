@@ -7,7 +7,7 @@ import org.vaadin.gatanaso.MultiselectComboBox;
 
 import com.himo.app.entity.user.User;
 import com.himo.app.service.travel.TravelOpportunityService;
-import com.himo.app.service.user.UserService;
+import com.himo.app.userinfo.UserInfo;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -28,7 +28,7 @@ public class WayView extends VerticalLayout
 	private TravelOpportunityService travelOpportunityService;
 
 	@Autowired
-	private UserService userService;
+	private UserInfo userInfo;
 	
 	private static final long serialVersionUID = 4333504967133586606L;
 
@@ -38,7 +38,7 @@ public class WayView extends VerticalLayout
 		H4 label = new H4();
 		addClassName("centered-content");
 		
-		User user = userService.getLoggenInUser();
+		User user = userInfo.getLoggedInUser();
 		if(user.isFahrer())
 		{
 			label.setText("Wie fährst du nach Tamsweg?");

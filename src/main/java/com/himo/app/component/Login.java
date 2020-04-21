@@ -5,8 +5,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.himo.app.entity.user.User;
-import com.himo.app.service.user.UserService;
+import com.himo.app.userinfo.UserInfo;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.login.LoginI18n;
@@ -21,9 +20,9 @@ public class Login extends LoginOverlay
 	private static final long serialVersionUID = -3124840772943883433L;
 
 	private Button loginButton = new Button();
-	private boolean loggedIn = false;
+	
 	@Autowired
-	private UserService userService;
+	private UserInfo userInfo;
 
 	@PostConstruct
 	public void init()
@@ -38,13 +37,11 @@ public class Login extends LoginOverlay
 			@Override
 			public void onComponentEvent(LoginEvent event)
 			{
-				String username = event.getUsername();
-				User user = userService.getUserByUserName(username);
-				if (event.getPassword().equals(user.getPassword()))
+				userInfo.login(event.getUsername(), event.getPassword());
+				if(userInfo.isLoggedIn())
 				{
-					toggleButtonLabel();
+					setButtonLabel();
 					close();
-					userService.setLoggenInUser(user);
 				}
 			}
 		});
@@ -56,10 +53,10 @@ public class Login extends LoginOverlay
 
 	private void log()
 	{
-		if (loggedIn)
+		if (userInfo.isLoggedIn())
 		{
-			toggleButtonLabel();
-			userService.setLoggenInUser(null);
+			userInfo.logout();
+			setButtonLabel();
 			setOpened(false);
 		} else
 		{
@@ -67,10 +64,9 @@ public class Login extends LoginOverlay
 		}
 	}
 
-	private void toggleButtonLabel()
+	private void setButtonLabel()
 	{
-		loggedIn = !loggedIn;
-		if (loggedIn)
+		if (userInfo.isLoggedIn())
 		{
 			loginButton.setText("Logout");
 		} else
@@ -82,11 +78,6 @@ public class Login extends LoginOverlay
 	public Button getButton()
 	{
 		return loginButton;
-	}
-
-	public boolean isLoggedIn()
-	{
-		return loggedIn;
 	}
 
 }

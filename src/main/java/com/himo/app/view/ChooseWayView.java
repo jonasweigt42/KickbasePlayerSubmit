@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.himo.app.entity.user.User;
 import com.himo.app.service.user.UserService;
+import com.himo.app.userinfo.UserInfo;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -25,6 +26,8 @@ public class ChooseWayView extends VerticalLayout
 	private static final long serialVersionUID = 4153761837545371752L;
 
 	@Autowired
+	private UserInfo userInfo;
+	@Autowired
 	private UserService userService;
 
 	@PostConstruct
@@ -35,7 +38,7 @@ public class ChooseWayView extends VerticalLayout
 		ComboBox<String> comboBox = new ComboBox<>();
 		
 		addClassName("centered-content");
-		User user = userService.getLoggenInUser();
+		User user = userInfo.getLoggedInUser();
 		if(user != null)
 		{
 			label = new H4("Hi " + user.getFirstName() + "! Bist du Fahrer oder Mitfahrer?");
