@@ -32,6 +32,13 @@ $_documentContainer.innerHTML = `
       [part="drawer"] {
 		max-width: 150px;
       }
+      
+      :host {
+      			--lumo-primary-color-10pct: var(--primary-color, #147843);
+      			--lumo-primary-color-50pct: var(--primary-color, #147843);
+                --lumo-primary-color: var(--primary-color, #147843);
+                --lumo-primary-text-color: var(--primary-color, #147843);
+            }
     </style>
   </template>
 </dom-module>
