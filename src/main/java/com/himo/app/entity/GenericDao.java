@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class GenericDao<T extends Serializable>
+public abstract class GenericDao<T extends Serializable>
 {
 
 	private Class<T> clazz;

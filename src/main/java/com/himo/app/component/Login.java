@@ -29,7 +29,6 @@ public class Login extends LoginOverlay
 	public void init()
 	{
 		loginButton.setText("Login");
-		// TODO toggle
 		loginButton.addClickListener(e -> log());
 		loginButton.setClassName("right");
 		addLoginListener(new ComponentEventListener<LoginEvent>()
@@ -45,6 +44,7 @@ public class Login extends LoginOverlay
 				{
 					toggleButtonLabel();
 					close();
+					userService.setLoggenInUser(user);
 				}
 			}
 		});
