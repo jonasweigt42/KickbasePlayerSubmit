@@ -20,16 +20,18 @@ public class Login extends LoginOverlay
 	private static final long serialVersionUID = -3124840772943883433L;
 
 	private Button loginButton = new Button();
-	
+	private Button registerButton = new Button();
+
 	@Autowired
 	private UserInfo userInfo;
 
 	@PostConstruct
 	public void init()
 	{
-		setButtonLabel();
+		setButtonsLabel();
 		loginButton.addClickListener(e -> log());
-		loginButton.setClassName("right");
+		loginButton.setClassName("floated");
+		registerButton.setClassName("floated");
 		addLoginListener(new ComponentEventListener<LoginEvent>()
 		{
 			private static final long serialVersionUID = -50433215575229805L;
@@ -38,9 +40,9 @@ public class Login extends LoginOverlay
 			public void onComponentEvent(LoginEvent event)
 			{
 				userInfo.login(event.getUsername(), event.getPassword());
-				if(userInfo.isLoggedIn())
+				if (userInfo.isLoggedIn())
 				{
-					setButtonLabel();
+					setButtonsLabel();
 					close();
 				}
 			}
@@ -56,7 +58,7 @@ public class Login extends LoginOverlay
 		if (userInfo.isLoggedIn())
 		{
 			userInfo.logout();
-			setButtonLabel();
+			setButtonsLabel();
 			setOpened(false);
 		} else
 		{
@@ -64,20 +66,27 @@ public class Login extends LoginOverlay
 		}
 	}
 
-	private void setButtonLabel()
+	private void setButtonsLabel()
 	{
 		if (userInfo.isLoggedIn())
 		{
+			registerButton.setEnabled(false);
 			loginButton.setText("Logout");
 		} else
 		{
+			registerButton.setText("Registrieren");
 			loginButton.setText("Login");
 		}
 	}
 
-	public Button getButton()
+	public Button getLoginButton()
 	{
 		return loginButton;
+	}
+
+	public Button getRegisterButton()
+	{
+		return registerButton;
 	}
 
 }

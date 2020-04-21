@@ -45,6 +45,9 @@ public class UserInfo implements Serializable
 	{
 		User user = userService.getUserByUserName(userName);
 		
+//		PasswordEncoder encoder = new BCryptPasswordEncoder();
+//		String encodedPassword = encoder.encode(user.getPassword());
+		
 		if(user.getPassword().equals(password))
 		{
 			return user;
