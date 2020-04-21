@@ -63,7 +63,7 @@ public class MainView extends AppLayout
 		setPrimarySection(Section.DRAWER);
 		addToNavbar(false, new DrawerToggle());
 		addToNavbar(false, logo);
-		addToNavbar(login.getButton());
+		addToNavbar(login.getLoginButton());
 		menu = createMenuTabs();
 		addToDrawer(menu);
 	}

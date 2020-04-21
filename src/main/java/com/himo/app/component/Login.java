@@ -20,7 +20,6 @@ public class Login extends LoginOverlay
 	private static final long serialVersionUID = -3124840772943883433L;
 
 	private Button loginButton = new Button();
-	private Button registerButton = new Button();
 
 	@Autowired
 	private UserInfo userInfo;
@@ -28,10 +27,9 @@ public class Login extends LoginOverlay
 	@PostConstruct
 	public void init()
 	{
-		setButtonsLabel();
+		setButtonLabel();
 		loginButton.addClickListener(e -> log());
-		loginButton.setClassName("floated");
-		registerButton.setClassName("floated");
+		loginButton.setClassName("right");
 		addLoginListener(new ComponentEventListener<LoginEvent>()
 		{
 			private static final long serialVersionUID = -50433215575229805L;
@@ -42,14 +40,18 @@ public class Login extends LoginOverlay
 				userInfo.login(event.getUsername(), event.getPassword());
 				if (userInfo.isLoggedIn())
 				{
-					setButtonsLabel();
+					setButtonLabel();
 					close();
 				}
 			}
 		});
 		setTitle("HiMo");
+		
 		setDescription("Willkommen! Bitte melde dich kurz an und dann kann es schon losgehen!");
 		LoginI18n i18n = LoginI18n.createDefault();
+		i18n.getForm().setUsername("Benutzername");
+		i18n.getForm().setPassword("Passwort");
+		i18n.getForm().setForgotPassword("Passwort vergessen");
 		setI18n(i18n);
 	}
 
@@ -58,7 +60,7 @@ public class Login extends LoginOverlay
 		if (userInfo.isLoggedIn())
 		{
 			userInfo.logout();
-			setButtonsLabel();
+			setButtonLabel();
 			setOpened(false);
 		} else
 		{
@@ -66,15 +68,13 @@ public class Login extends LoginOverlay
 		}
 	}
 
-	private void setButtonsLabel()
+	private void setButtonLabel()
 	{
 		if (userInfo.isLoggedIn())
 		{
-			registerButton.setEnabled(false);
 			loginButton.setText("Logout");
 		} else
 		{
-			registerButton.setText("Registrieren");
 			loginButton.setText("Login");
 		}
 	}
@@ -82,11 +82,6 @@ public class Login extends LoginOverlay
 	public Button getLoginButton()
 	{
 		return loginButton;
-	}
-
-	public Button getRegisterButton()
-	{
-		return registerButton;
 	}
 
 }
