@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.himo.app.component.Login;
 import com.himo.app.component.Logo;
+import com.himo.app.view.trip.ProvideTripView;
+import com.himo.app.view.trip.SearchTripView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -83,9 +85,9 @@ public class MainView extends AppLayout
 	{
 		final List<Tab> tabs = new ArrayList<>();
 		tabs.add(createTab("Start", StartView.class));
-		tabs.add(createTab("Fahrt", ChooseWayView.class));
-//		tabs.add(createTab("Players", PlayersView.class));
-//		tabs.add(createTab("GameStats", GameStatsView.class));
+		tabs.add(createTab("Fahrt finden", SearchTripView.class));
+		tabs.add(createTab("Fahrt anbieten", ProvideTripView.class));
+		tabs.add(createTab("Profil", ProfileView.class));
 		return tabs.toArray(new Tab[tabs.size()]);
 	}
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.himo.app.entity.user.User;
 import com.himo.app.service.user.UserService;
+import com.himo.app.travel.TravelData;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.spring.annotation.VaadinSessionScope;
 
@@ -19,6 +20,7 @@ public class UserInfo implements Serializable
 	private String sessionId;
 	private boolean loggedIn;
 	private User loggedInUser;
+	private TravelData travelData;
 	
 	@Autowired
 	private UserService userService;
@@ -68,6 +70,16 @@ public class UserInfo implements Serializable
 	public User getLoggedInUser()
 	{
 		return loggedInUser;
+	}
+
+	public TravelData getTravelData()
+	{
+		return travelData;
+	}
+
+	public void setTravelData(TravelData travelData)
+	{
+		this.travelData = travelData;
 	}
 
 }
