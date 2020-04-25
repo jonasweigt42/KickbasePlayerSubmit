@@ -7,14 +7,13 @@ CREATE TABLE USER (
   last_name VARCHAR(250) NOT NULL,
   user_name VARCHAR(250) NOT NULL,
   password VARCHAR(250) NOT NULL,
-  is_Fahrer BOOLEAN,
-  is_Mitfahrer BOOLEAN
+  is_Fahrer BOOLEAN DEFAULT false
 );
  
-INSERT INTO USER (first_name, last_name, user_name, password, is_Fahrer, is_Mitfahrer) VALUES
-  ('Jonas', 'Weigt', 'jonas','jonas', false, false),
-  ('Eva', 'Weigt', 'eva', 'eva', false, false),
-  ('Admin', 'Admin', 'admin', 'admin', false, false);
+INSERT INTO USER (first_name, last_name, user_name, password) VALUES
+  ('Jonas', 'Weigt', 'jonas','jonas'),
+  ('Eva', 'Weigt', 'eva', 'eva'),
+  ('Admin', 'Admin', 'admin', 'admin');
   
  CREATE TABLE TRAVEL_OPPORTUNITY (
   id INT AUTO_INCREMENT  PRIMARY KEY,

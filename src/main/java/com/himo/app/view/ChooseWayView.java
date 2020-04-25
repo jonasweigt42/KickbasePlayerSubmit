@@ -51,7 +51,6 @@ public class ChooseWayView extends VerticalLayout
 			{
 				boolean bool = calcIsFahrer(comboBox.getValue());
 				user.setFahrer(bool);
-				user.setMitfahrer(!bool);
 				userService.update(user);
 				navigate();
 			});

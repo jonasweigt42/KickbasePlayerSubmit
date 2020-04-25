@@ -31,8 +31,6 @@ public class User implements Serializable
 	
 	@Column
 	private boolean isFahrer;
-	@Column
-	private boolean isMitfahrer;
 	
 	
 	public int getId()
@@ -43,17 +41,9 @@ public class User implements Serializable
 	{
 		this.isFahrer = isFahrer;
 	}
-	public void setMitfahrer(boolean isMitfahrer)
-	{
-		this.isMitfahrer = isMitfahrer;
-	}
 	public boolean isFahrer()
 	{
 		return isFahrer;
-	}
-	public boolean isMitfahrer()
-	{
-		return isMitfahrer;
 	}
 	public String getUserName()
 	{
