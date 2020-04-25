@@ -3,6 +3,7 @@ package com.himo.app.view;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.himo.app.entity.user.User;
 import com.himo.app.service.user.UserService;
@@ -20,6 +21,7 @@ import com.vaadin.flow.spring.annotation.UIScope;
 @CssImport("./styles/shared-styles.css")
 @CssImport(value = "./styles/vaadin-text-field-styles.css", themeFor = "vaadin-text-field")
 @UIScope
+@Component
 public class ChooseWayView extends VerticalLayout
 {
 
@@ -33,6 +35,7 @@ public class ChooseWayView extends VerticalLayout
 	@PostConstruct
 	public void init()
 	{
+		removeAll();
 		H4 label = new H4();
 		Button button = new Button("los geht's!");
 		ComboBox<String> comboBox = new ComboBox<>();
@@ -96,4 +99,5 @@ public class ChooseWayView extends VerticalLayout
 	{
 		UI.getCurrent().navigate(WayView.class);
 	}
+
 }
