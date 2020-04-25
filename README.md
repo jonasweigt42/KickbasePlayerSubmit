@@ -1,6 +1,5 @@
 # Project Base with Vaadin and Spring Boot
 
-The best way to create your own project based on this starter is [start.vaadin.com](https://start.vaadin.com/) - you can get only the necessary parts and choose the package naming you want to use.
 
 ## Running the Application
 
