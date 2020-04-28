@@ -13,7 +13,6 @@ import com.himo.app.view.trip.ProvideTripView;
 import com.himo.app.view.trip.SearchTripView;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.spring.annotation.UIScope;
@@ -26,7 +25,6 @@ public class Login extends LoginOverlay
 	private static final long serialVersionUID = -3124840772943883433L;
 
 	private Button loginButton = new Button();
-	private Label nameLabel = new Label();
 
 	@Autowired
 	private UserInfo userInfo;
@@ -54,7 +52,6 @@ public class Login extends LoginOverlay
 		setTitle(TextConstants.TITLE);
 		setDescription("Willkommen! Bitte melde dich kurz an und dann kann es schon losgehen!");
 		
-		nameLabel.setVisible(false);
 	}
 
 	private void prepareLoginListener()
@@ -70,7 +67,6 @@ public class Login extends LoginOverlay
 				if (userInfo.isLoggedIn())
 				{
 					prepareButtonLabel();
-					addNameToLabel();
 					close();
 					updateViews();
 				}
@@ -124,20 +120,9 @@ public class Login extends LoginOverlay
 		}
 	}
 
-	private void addNameToLabel()
-	{
-		nameLabel.setText(" - Eingeloggt als " + userInfo.getLoggedInUser().getFirstName());
-		nameLabel.setVisible(true);
-	}
-
 	public Button getLoginButton()
 	{
 		return loginButton;
 	}
 	
-	public Label getNameLabel()
-	{
-		return nameLabel;
-	}
-
 }
