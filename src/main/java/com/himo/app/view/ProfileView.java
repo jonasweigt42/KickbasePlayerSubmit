@@ -50,17 +50,20 @@ public class ProfileView extends VerticalLayout
 		{
 			TextField firstname = new TextField();
 			firstname.setValue(user.getFirstName());
+			firstname.setLabel("Vorname");
 			TextField lastname = new TextField();
 			lastname.setValue(user.getLastName());
-			TextField username = new TextField();
-			username.setValue(user.getUserName());
+			lastname.setLabel("Nachname");
+			TextField mailaddress = new TextField();
+			mailaddress.setValue(user.getMailAddress());
+			mailaddress.setLabel(TextConstants.USERNAME);
 			Checkbox checkbox = new Checkbox("Fahrer", user.isFahrer());
 
 			Button save = new Button("Speichern");
-			save.addClickListener(evt -> updateUser(firstname.getValue(), lastname.getValue(), username.getValue(),
+			save.addClickListener(evt -> updateUser(firstname.getValue(), lastname.getValue(), mailaddress.getValue(),
 					checkbox.getValue()));
 
-			add(firstname, lastname, username, checkbox, save);
+			add(firstname, lastname, mailaddress, checkbox, save);
 		} else
 		{
 			H4 label = new H4(TextConstants.NOT_LOGGED_IN_MESSAGE);
@@ -73,7 +76,7 @@ public class ProfileView extends VerticalLayout
 		User user = userInfo.getLoggedInUser();
 		user.setFirstName(firstname);
 		user.setLastName(lastname);
-		user.setUserName(username);
+		user.setMailAddress(username);
 		user.setFahrer(isFahrer);
 		userService.update(user);
 		Notification.show("Benutzer wurde aktualisiert!");

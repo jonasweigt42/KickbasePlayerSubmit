@@ -8,11 +8,7 @@ public interface UserService
 {
 	List<User> findAll();
 	
-	User getUserByUserName(String userName);
-	
-	void setLoggenInUser(User loggenInUser);
-	
-	User getLoggenInUser();
+	User getUserByMailAddress(String mailAddress);
 	
 	void update(User user);
 }

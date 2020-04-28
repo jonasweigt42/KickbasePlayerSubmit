@@ -25,7 +25,7 @@ public class User implements Serializable
 	@Column
 	private String lastName;
 	@Column
-	private String userName;
+	private String mailAddress;
 	@Column
 	private String password;
 	
@@ -45,13 +45,13 @@ public class User implements Serializable
 	{
 		return isFahrer;
 	}
-	public String getUserName()
+	public String getMailAddress()
 	{
-		return userName;
+		return mailAddress;
 	}
-	public void setUserName(String userName)
+	public void setMailAddress(String mailAddress)
 	{
-		this.userName = userName;
+		this.mailAddress = mailAddress;
 	}
 	public String getPassword()
 	{

@@ -25,9 +25,9 @@ public class UserInfo implements Serializable
 	@Autowired
 	private UserService userService;
 
-	public void login(String userName, String password)
+	public void login(String mailAddress, String password)
 	{
-		loggedInUser = callDbAndAuthenticateUser(userName, password);
+		loggedInUser = callDbAndAuthenticateUser(mailAddress, password);
 		loggedIn = loggedInUser != null;
 		if(loggedIn)
 		{
@@ -43,9 +43,9 @@ public class UserInfo implements Serializable
 		VaadinSession.getCurrent().getSession().invalidate();
 	}
 
-	private User callDbAndAuthenticateUser(String userName, String password)
+	private User callDbAndAuthenticateUser(String mailAddress, String password)
 	{
-		User user = userService.getUserByUserName(userName);
+		User user = userService.getUserByMailAddress(mailAddress);
 		
 //		PasswordEncoder encoder = new BCryptPasswordEncoder();
 //		String encodedPassword = encoder.encode(user.getPassword());

@@ -14,8 +14,6 @@ import com.himo.app.entity.user.UserDao;
 public class UserServiceImpl implements UserService
 {
 
-	private User loggenInUser = null;
-	
 	@Autowired
 	private UserDao dao;
 
@@ -32,30 +30,18 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public User getUserByUserName(String userName)
+	public User getUserByMailAddress(String mailAddress)
 	{
 		List<User> users = dao.findAll();
 
 		for (User user : users)
 		{
-			if (user.getUserName().equals(userName))
+			if (user.getMailAddress().equals(mailAddress))
 			{
 				return user;
 			}
 		}
 		return null;
-	}
-
-	@Override
-	public User getLoggenInUser()
-	{
-		return loggenInUser;
-	}
-
-	@Override
-	public void setLoggenInUser(User loggenInUser)
-	{
-		this.loggenInUser = loggenInUser;
 	}
 
 	@Override
