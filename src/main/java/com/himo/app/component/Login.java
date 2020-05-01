@@ -17,6 +17,7 @@ import com.vaadin.flow.component.login.LoginI18n;
 import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.spring.annotation.UIScope;
 
+
 @Component
 @UIScope
 public class Login extends LoginOverlay
@@ -30,14 +31,17 @@ public class Login extends LoginOverlay
 	private UserInfo userInfo;
 
 	@Autowired
+	private ForgetPasswordDialog forgotPasswordDialog;
+
+	@Autowired
 	private SearchTripView searchTripView;
-	
+
 	@Autowired
 	private StartView startView;
-	
+
 	@Autowired
 	private ProvideTripView provideTripView;
-	
+
 	@Autowired
 	private ProfileView profileView;
 
@@ -47,11 +51,27 @@ public class Login extends LoginOverlay
 		prepareButtonLabel();
 		prepareLoginButton();
 		prepareLoginListener();
-		
+		prepareForgetPasswordListener();
+
 		setI18n(prepareI18n());
 		setTitle(TextConstants.TITLE);
 		setDescription("Willkommen! Bitte melde dich kurz an und dann kann es schon losgehen!");
-		
+
+	}
+
+	private void prepareForgetPasswordListener()
+	{
+		addForgotPasswordListener(new ComponentEventListener<ForgotPasswordEvent>()
+		{
+
+			private static final long serialVersionUID = -6677798405282464643L;
+
+			@Override
+			public void onComponentEvent(ForgotPasswordEvent event)
+			{
+				forgotPasswordDialog.open();
+			}
+		});
 	}
 
 	private void prepareLoginListener()
@@ -73,7 +93,7 @@ public class Login extends LoginOverlay
 			}
 		});
 	}
-	
+
 	private void updateViews()
 	{
 		searchTripView.loadContent();
@@ -124,5 +144,5 @@ public class Login extends LoginOverlay
 	{
 		return loginButton;
 	}
-	
+
 }

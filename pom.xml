@@ -151,8 +151,10 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 		</dependency>
-
-
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin-dialog-flow</artifactId>
+		</dependency>
 
 	</dependencies>
 
