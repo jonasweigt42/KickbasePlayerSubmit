@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.himo.app.component.Login;
 import com.himo.app.component.Logo;
+import com.himo.app.component.Register;
 import com.himo.app.view.trip.ProvideTripView;
 import com.himo.app.view.trip.SearchTripView;
 import com.vaadin.flow.component.Component;
@@ -58,6 +59,9 @@ public class MainView extends AppLayout
 
 	@Autowired
 	private Login login;
+	
+	@Autowired
+	private Register register;
 
 	@PostConstruct
 	public void init() throws IOException, URISyntaxException
@@ -65,7 +69,7 @@ public class MainView extends AppLayout
 		setPrimarySection(Section.DRAWER);
 		addToNavbar(false, new DrawerToggle());
 		addToNavbar(false, logo);
-		addToNavbar(login.getLoginButton());
+		addToNavbar(register.getRegisterButton(), login.getLoginButton());
 		menu = createMenuTabs();
 		addToDrawer(menu);
 	}
@@ -125,5 +129,5 @@ public class MainView extends AppLayout
 		}).findFirst();
 		tabToSelect.ifPresent(tab -> menu.setSelectedTab((Tab) tab));
 	}
-
+	
 }
