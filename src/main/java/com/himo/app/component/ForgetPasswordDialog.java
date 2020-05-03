@@ -33,7 +33,7 @@ public class ForgetPasswordDialog extends Dialog
 	private TextField mailAddress = new TextField();
 	private PasswordField newPassword = new PasswordField();
 	private PasswordField newPasswordRetype = new PasswordField();
-	private Label label = new Label();
+	private Label errorLabel = new Label();
 
 	@Autowired
 	private UserService userService;
@@ -47,7 +47,7 @@ public class ForgetPasswordDialog extends Dialog
 		H2 title = new H2("Neues Passwort vergeben");
 		mailAddress = prepareEMailField();
 		
-		label.addClassName("text-red");
+		errorLabel.addClassName("text-red");
 
 		newPassword.setLabel(TextConstants.NEW_PASSWORD);
 		newPasswordRetype.setLabel(TextConstants.NEW_PASSWORD_RETYPE);
@@ -59,7 +59,7 @@ public class ForgetPasswordDialog extends Dialog
 		setCloseOnEsc(true);
 		setSizeFull();
 		
-		layout.add(title, mailAddress, newPassword, newPasswordRetype, label, submit);
+		layout.add(title, mailAddress, newPassword, newPasswordRetype, errorLabel, submit);
 		add(layout);
 
 	}
@@ -79,12 +79,12 @@ public class ForgetPasswordDialog extends Dialog
 
 		if (user == null)
 		{
-			label.setText("Benutzer ist nicht registriert");
+			errorLabel.setText("Benutzer ist nicht registriert");
 			
 		}
 		if(user != null && !newPassword.getValue().equals(newPasswordRetype.getValue()))
 		{
-			label.setText("Passwörter sind nicht gleich");
+			errorLabel.setText("Passwörter sind nicht gleich");
 		}
 		if(user != null && newPassword.getValue().equals(newPasswordRetype.getValue()))
 		{
