@@ -11,4 +11,6 @@ public interface UserService
 	User getUserByMailAddress(String mailAddress);
 	
 	void update(User user);
+	
+	void save(User newUser);
 }

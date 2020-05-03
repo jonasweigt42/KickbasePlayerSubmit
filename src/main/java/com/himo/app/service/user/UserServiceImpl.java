@@ -50,4 +50,10 @@ public class UserServiceImpl implements UserService
 		dao.update(user);
 	}
 
+	@Override
+	public void save(User newUser)
+	{
+		dao.save(newUser);
+	}
+
 }
