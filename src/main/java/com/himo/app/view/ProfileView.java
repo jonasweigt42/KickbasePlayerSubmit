@@ -56,7 +56,7 @@ public class ProfileView extends VerticalLayout
 			lastname.setLabel("Nachname");
 			TextField mailaddress = new TextField();
 			mailaddress.setValue(user.getMailAddress());
-			mailaddress.setLabel(TextConstants.USERNAME);
+			mailaddress.setLabel(TextConstants.MAIL_ADDRESS);
 			Checkbox checkbox = new Checkbox("Fahrer", user.isFahrer());
 
 			Button save = new Button("Speichern");
