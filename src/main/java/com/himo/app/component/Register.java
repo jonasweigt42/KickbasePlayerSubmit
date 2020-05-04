@@ -8,13 +8,15 @@ import org.springframework.stereotype.Component;
 
 import com.himo.app.constants.TextConstants;
 import com.himo.app.entity.user.User;
+import com.himo.app.event.Publisher;
+import com.himo.app.event.UpdateLoginEvent;
 import com.himo.app.event.UpdateRegisterEvent;
 import com.himo.app.service.user.UserService;
 import com.himo.app.userinfo.UserInfo;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dialog.Dialog;
-import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -35,8 +37,8 @@ public class Register extends Dialog implements ApplicationListener<UpdateRegist
 	private TextField firstName = new TextField();
 	private TextField lastName = new TextField();
 	private TextField mailAddress = new TextField();
-	private PasswordField newPassword = new PasswordField();
-	private PasswordField newPasswordRetype = new PasswordField();
+	private PasswordField password = new PasswordField();
+	private PasswordField passwordRetype = new PasswordField();
 	private Label errorLabel = new Label();
 	private Button registerButton = new Button("Registrieren");
 
@@ -45,6 +47,9 @@ public class Register extends Dialog implements ApplicationListener<UpdateRegist
 
 	@Autowired
 	private UserInfo userInfo;
+	
+	@Autowired
+	private Publisher publisher;
 
 	@PostConstruct
 	public void init()
@@ -53,15 +58,15 @@ public class Register extends Dialog implements ApplicationListener<UpdateRegist
 		layout.addClassName("centered-content");
 		prepareRegisterButton();
 
-		H2 title = new H2("Neu hier?");
+		H4 title = new H4("Neu hier?");
 		mailAddress = prepareEMailField();
 
 		errorLabel.addClassName("text-red");
 
 		firstName.setLabel(TextConstants.FIRSTNAME);
 		lastName.setLabel(TextConstants.LASTNAME);
-		newPassword.setLabel(TextConstants.NEW_PASSWORD);
-		newPasswordRetype.setLabel(TextConstants.NEW_PASSWORD_RETYPE);
+		password.setLabel(TextConstants.PASSWORD);
+		passwordRetype.setLabel(TextConstants.PASSWORD_RETYPE);
 
 		Button submit = new Button();
 		submit.addClickListener(ent -> validate());
@@ -70,7 +75,7 @@ public class Register extends Dialog implements ApplicationListener<UpdateRegist
 		setCloseOnEsc(true);
 		setSizeFull();
 
-		layout.add(title, firstName, lastName, mailAddress, newPassword, newPasswordRetype, errorLabel, submit);
+		layout.add(title, firstName, lastName, mailAddress, password, passwordRetype, errorLabel, submit);
 		add(layout);
 
 	}
@@ -106,15 +111,17 @@ public class Register extends Dialog implements ApplicationListener<UpdateRegist
 		{
 			errorLabel.setText("Benutzer ist schon vorhanden");
 		}
-		if (user != null && !newPassword.getValue().equals(newPasswordRetype.getValue()))
+		if (user == null && !password.getValue().equals(passwordRetype.getValue()))
 		{
 			errorLabel.setText("Passwörter sind nicht gleich");
 		}
-		if (user == null && newPassword.getValue().equals(newPasswordRetype.getValue()))
+		if (user == null && password.getValue().equals(passwordRetype.getValue()))
 		{
 			User newUser = createUser();
 			userService.save(newUser);
-			userInfo.login(mailAddress.getValue(), newPasswordRetype.getValue());
+			userInfo.login(mailAddress.getValue(), passwordRetype.getValue());
+			registerButton.setVisible(false);
+			publisher.publishEvent(new UpdateLoginEvent(this));
 			close();
 		}
 	}
@@ -125,7 +132,7 @@ public class Register extends Dialog implements ApplicationListener<UpdateRegist
 		newUser.setFirstName(firstName.getValue());
 		newUser.setLastName(lastName.getValue());
 		newUser.setMailAddress(mailAddress.getValue());
-		newUser.setPassword(newPasswordRetype.getValue());
+		newUser.setPassword(passwordRetype.getValue());
 		return newUser;
 	}
 	
@@ -138,7 +145,7 @@ public class Register extends Dialog implements ApplicationListener<UpdateRegist
 	public void onApplicationEvent(UpdateRegisterEvent event)
 	{
 		registerButton.setVisible(false);
-		System.out.println("HALLO HEIMO");
+		System.out.println("HALLO HEIMO - RegisterView");
 	}
 
 }

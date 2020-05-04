@@ -3,10 +3,12 @@ package com.himo.app.component;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import com.himo.app.constants.TextConstants;
 import com.himo.app.event.Publisher;
+import com.himo.app.event.UpdateLoginEvent;
 import com.himo.app.event.UpdateRegisterEvent;
 import com.himo.app.userinfo.UserInfo;
 import com.himo.app.view.ProfileView;
@@ -22,7 +24,7 @@ import com.vaadin.flow.spring.annotation.UIScope;
 
 @Component
 @UIScope
-public class Login extends LoginOverlay
+public class Login extends LoginOverlay implements ApplicationListener<UpdateLoginEvent>
 {
 
 	private static final long serialVersionUID = -3124840772943883433L;
@@ -149,6 +151,14 @@ public class Login extends LoginOverlay
 	public Button getLoginButton()
 	{
 		return loginButton;
+	}
+
+	@Override
+	public void onApplicationEvent(UpdateLoginEvent event)
+	{
+		System.out.println("HALLO HEIMO - LoginView");
+		prepareButtonLabel();
+		updateViews();
 	}
 
 }
