@@ -51,7 +51,8 @@ import com.vaadin.flow.theme.lumo.Lumo;
 public class MainView extends AppLayout
 {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 8986999742090476969L;
+
 	private Tabs menu;
 
 	@Autowired

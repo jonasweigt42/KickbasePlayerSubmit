@@ -10,9 +10,9 @@
   max-width: 250px;
 }
 
-.right {
-	position: absolute;
-	right: 0;
+.button {
+	justify-content: flex-end;
+	margin-left: auto;
 	margin-right: 5px;
 }
 

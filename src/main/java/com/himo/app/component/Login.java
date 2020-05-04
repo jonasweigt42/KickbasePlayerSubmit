@@ -111,7 +111,7 @@ public class Login extends LoginOverlay
 	private void prepareLoginButton()
 	{
 		loginButton.addClickListener(e -> changeLoginState());
-		loginButton.setClassName("right");
+		loginButton.setClassName("button");
 	}
 
 	private LoginI18n prepareI18n()

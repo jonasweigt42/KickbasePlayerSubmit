@@ -51,6 +51,7 @@ public class Register extends Dialog implements ApplicationListener<UpdateRegist
 	{
 		VerticalLayout layout = new VerticalLayout();
 		layout.addClassName("centered-content");
+		prepareRegisterButton();
 
 		H2 title = new H2("Neu hier?");
 		mailAddress = prepareEMailField();
@@ -72,6 +73,20 @@ public class Register extends Dialog implements ApplicationListener<UpdateRegist
 		layout.add(title, firstName, lastName, mailAddress, newPassword, newPasswordRetype, errorLabel, submit);
 		add(layout);
 
+	}
+	
+	private void prepareRegisterButton()
+	{
+		registerButton.addClickListener(e -> changeRegisterState());
+		registerButton.setClassName("button");
+	}
+
+	private void changeRegisterState()
+	{
+		if(!userInfo.isLoggedIn())
+		{
+			open();
+		}
 	}
 
 	public TextField prepareEMailField()
