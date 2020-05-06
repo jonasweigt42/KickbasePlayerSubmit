@@ -3,14 +3,12 @@ package com.himo.app.component;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import com.himo.app.constants.TextConstants;
 import com.himo.app.entity.user.User;
 import com.himo.app.event.Publisher;
 import com.himo.app.event.UpdateLoginEvent;
-import com.himo.app.event.UpdateRegisterEvent;
 import com.himo.app.service.user.UserService;
 import com.himo.app.userinfo.UserInfo;
 import com.vaadin.flow.component.button.Button;
@@ -29,7 +27,7 @@ import com.vaadin.flow.spring.annotation.UIScope;
 @CssImport(value = "./styles/vaadin-text-field-styles.css", themeFor = "vaadin-text-field")
 @Component
 @UIScope
-public class Register extends Dialog implements ApplicationListener<UpdateRegisterEvent>
+public class Register extends Dialog
 {
 
 	private static final long serialVersionUID = -7750716192029688905L;
@@ -40,7 +38,6 @@ public class Register extends Dialog implements ApplicationListener<UpdateRegist
 	private PasswordField password = new PasswordField();
 	private PasswordField passwordRetype = new PasswordField();
 	private Label errorLabel = new Label();
-	private Button registerButton = new Button("Registrieren");
 
 	@Autowired
 	private UserService userService;
@@ -50,13 +47,12 @@ public class Register extends Dialog implements ApplicationListener<UpdateRegist
 	
 	@Autowired
 	private Publisher publisher;
-
+	
 	@PostConstruct
 	public void init()
 	{
 		VerticalLayout layout = new VerticalLayout();
 		layout.addClassName("centered-content");
-		prepareRegisterButton();
 
 		H4 title = new H4("Neu hier?");
 		mailAddress = prepareEMailField();
@@ -80,20 +76,6 @@ public class Register extends Dialog implements ApplicationListener<UpdateRegist
 
 	}
 	
-	private void prepareRegisterButton()
-	{
-		registerButton.addClickListener(e -> changeRegisterState());
-		registerButton.setClassName("button");
-	}
-
-	private void changeRegisterState()
-	{
-		if(!userInfo.isLoggedIn())
-		{
-			open();
-		}
-	}
-
 	public TextField prepareEMailField()
 	{
 		mailAddress.setLabel(TextConstants.MAIL_ADDRESS);
@@ -119,10 +101,9 @@ public class Register extends Dialog implements ApplicationListener<UpdateRegist
 		{
 			User newUser = createUser();
 			userService.save(newUser);
-			userInfo.login(mailAddress.getValue(), passwordRetype.getValue());
-			registerButton.setVisible(false);
-			publisher.publishEvent(new UpdateLoginEvent(this));
+			userInfo.login(newUser.getMailAddress(), newUser.getPassword());
 			close();
+			publisher.publishEvent(new UpdateLoginEvent(this));
 		}
 	}
 
@@ -132,20 +113,12 @@ public class Register extends Dialog implements ApplicationListener<UpdateRegist
 		newUser.setFirstName(firstName.getValue());
 		newUser.setLastName(lastName.getValue());
 		newUser.setMailAddress(mailAddress.getValue());
+		
+//		PasswordEncoder encoder = new BCryptPasswordEncoder();
+//		String encodedPassword = encoder.encode(passwordRetype.getValue());
+
 		newUser.setPassword(passwordRetype.getValue());
 		return newUser;
 	}
 	
-	public Button getRegisterButton()
-	{
-		return registerButton;
-	}
-	
-	@Override
-	public void onApplicationEvent(UpdateRegisterEvent event)
-	{
-		registerButton.setVisible(false);
-		System.out.println("HALLO HEIMO - RegisterView");
-	}
-
 }
