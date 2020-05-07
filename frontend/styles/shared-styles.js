@@ -27,6 +27,17 @@ $_documentContainer.innerHTML = `
   </style>
 </custom-style>
 
+<dom-module id="app-layout-theme" theme-for="vaadin-app-layout">
+  <template>
+    <style>
+      [part="drawer"] {
+		max-width: 150px;
+      }
+      
+     </style>
+  </template>
+</dom-module>
+
 `;
 
 document.head.appendChild($_documentContainer.content);

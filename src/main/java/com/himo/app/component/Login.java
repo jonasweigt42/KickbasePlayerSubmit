@@ -70,6 +70,15 @@ public class Login extends Dialog implements ApplicationListener<UpdateLoginEven
 		add(loginForm, prepareRegistrationButton());
 	}
 	
+	@Override
+	public void open()
+	{
+		if(!userInfo.isLoggedIn())
+		{
+			super.open();
+		}
+	}
+	
 	private Button prepareRegistrationButton()
 	{
 		Button button = new Button("Registrieren");
