@@ -3,6 +3,7 @@ package com.himo.app.userinfo;
 import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.himo.app.entity.user.User;
@@ -21,20 +22,23 @@ public class UserInfo implements Serializable
 	private boolean loggedIn;
 	private User loggedInUser;
 	private TravelData travelData;
-	
+
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private PasswordEncoder encoder;
 
 	public void login(String mailAddress, String password)
 	{
 		loggedInUser = callDbAndAuthenticateUser(mailAddress, password);
 		loggedIn = loggedInUser != null;
-		if(loggedIn)
+		if (loggedIn)
 		{
 			sessionId = VaadinSession.getCurrent().getSession().getId();
 		}
 	}
-	
+
 	public void logout()
 	{
 		sessionId = null;
@@ -46,17 +50,14 @@ public class UserInfo implements Serializable
 	private User callDbAndAuthenticateUser(String mailAddress, String password)
 	{
 		User user = userService.getUserByMailAddress(mailAddress);
-		
-//		PasswordEncoder encoder = new BCryptPasswordEncoder();
-//		String encodedPassword = encoder.encode(user.getPassword());
-		
-		if(user.getPassword().equals(password))
+
+		if (encoder.matches(password, user.getPassword()))
 		{
 			return user;
 		}
 		return null;
 	}
-	
+
 	public String getSessionId()
 	{
 		return sessionId;

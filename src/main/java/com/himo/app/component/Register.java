@@ -3,6 +3,7 @@ package com.himo.app.component;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.himo.app.constants.TextConstants;
@@ -48,6 +49,9 @@ public class Register extends Dialog
 	@Autowired
 	private Publisher publisher;
 	
+	@Autowired
+	private PasswordEncoder encoder;
+	
 	@PostConstruct
 	public void init()
 	{
@@ -55,17 +59,10 @@ public class Register extends Dialog
 		layout.addClassName("centered-content");
 
 		H4 title = new H4("Neu hier?");
-		mailAddress = prepareEMailField();
-
-		errorLabel.addClassName("text-red");
-
-		firstName.setLabel(TextConstants.FIRSTNAME);
-		lastName.setLabel(TextConstants.LASTNAME);
-		password.setLabel(TextConstants.PASSWORD);
-		passwordRetype.setLabel(TextConstants.PASSWORD_RETYPE);
+		prepareFields();
 
 		Button submit = new Button();
-		submit.addClickListener(ent -> validate());
+		submit.addClickListener(ent -> validateRegistration());
 		submit.setText("Registrieren");
 
 		setCloseOnEsc(true);
@@ -74,6 +71,16 @@ public class Register extends Dialog
 		layout.add(title, firstName, lastName, mailAddress, password, passwordRetype, errorLabel, submit);
 		add(layout);
 
+	}
+
+	public void prepareFields()
+	{
+		mailAddress = prepareEMailField();
+		errorLabel.addClassName("text-red");
+		firstName.setLabel(TextConstants.FIRSTNAME);
+		lastName.setLabel(TextConstants.LASTNAME);
+		password.setLabel(TextConstants.PASSWORD);
+		passwordRetype.setLabel(TextConstants.PASSWORD_RETYPE);
 	}
 	
 	public TextField prepareEMailField()
@@ -85,7 +92,7 @@ public class Register extends Dialog
 		return mailAddress;
 	}
 
-	private void validate()
+	private void validateRegistration()
 	{
 		User user = userService.getUserByMailAddress(mailAddress.getValue());
 
@@ -101,7 +108,7 @@ public class Register extends Dialog
 		{
 			User newUser = createUser();
 			userService.save(newUser);
-			userInfo.login(newUser.getMailAddress(), newUser.getPassword());
+			userInfo.login(newUser.getMailAddress(), passwordRetype.getValue());
 			close();
 			publisher.publishEvent(new UpdateLoginEvent(this));
 		}
@@ -114,10 +121,9 @@ public class Register extends Dialog
 		newUser.setLastName(lastName.getValue());
 		newUser.setMailAddress(mailAddress.getValue());
 		
-//		PasswordEncoder encoder = new BCryptPasswordEncoder();
-//		String encodedPassword = encoder.encode(passwordRetype.getValue());
+		String encodedPassword = encoder.encode(passwordRetype.getValue());
 
-		newUser.setPassword(passwordRetype.getValue());
+		newUser.setPassword(encodedPassword);
 		return newUser;
 	}
 	
