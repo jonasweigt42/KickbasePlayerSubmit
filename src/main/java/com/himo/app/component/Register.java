@@ -39,19 +39,20 @@ public class Register extends Dialog
 	private PasswordField password = new PasswordField();
 	private PasswordField passwordRetype = new PasswordField();
 	private Label errorLabel = new Label();
+	private Button submit = new Button("Registrieren");
 
 	@Autowired
 	private UserService userService;
 
 	@Autowired
 	private UserInfo userInfo;
-	
+
 	@Autowired
 	private Publisher publisher;
-	
+
 	@Autowired
 	private PasswordEncoder encoder;
-	
+
 	@PostConstruct
 	public void init()
 	{
@@ -60,10 +61,6 @@ public class Register extends Dialog
 
 		H4 title = new H4("Neu hier?");
 		prepareFields();
-
-		Button submit = new Button();
-		submit.addClickListener(ent -> validateRegistration());
-		submit.setText("Registrieren");
 
 		setCloseOnEsc(true);
 		setSizeFull();
@@ -81,8 +78,9 @@ public class Register extends Dialog
 		lastName.setLabel(TextConstants.LASTNAME);
 		password.setLabel(TextConstants.PASSWORD);
 		passwordRetype.setLabel(TextConstants.PASSWORD_RETYPE);
+		submit.addClickListener(evt -> validateRegistration());
 	}
-	
+
 	public TextField prepareEMailField()
 	{
 		mailAddress.setLabel(TextConstants.MAIL_ADDRESS);
@@ -120,11 +118,11 @@ public class Register extends Dialog
 		newUser.setFirstName(firstName.getValue());
 		newUser.setLastName(lastName.getValue());
 		newUser.setMailAddress(mailAddress.getValue());
-		
+
 		String encodedPassword = encoder.encode(passwordRetype.getValue());
 
 		newUser.setPassword(encodedPassword);
 		return newUser;
 	}
-	
+
 }
