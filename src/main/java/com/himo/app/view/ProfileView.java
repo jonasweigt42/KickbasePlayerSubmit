@@ -5,6 +5,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.himo.app.component.ChangePasswordDialog;
 import com.himo.app.constants.TextConstants;
 import com.himo.app.entity.user.User;
 import com.himo.app.service.user.UserService;
@@ -33,6 +34,9 @@ public class ProfileView extends VerticalLayout
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ChangePasswordDialog changePasswordDialog;
 
 	@PostConstruct
 	public void init()
@@ -48,27 +52,48 @@ public class ProfileView extends VerticalLayout
 		User user = userInfo.getLoggedInUser();
 		if (user != null)
 		{
-			TextField firstname = new TextField();
-			firstname.setValue(user.getFirstName());
-			firstname.setLabel("Vorname");
-			TextField lastname = new TextField();
-			lastname.setValue(user.getLastName());
-			lastname.setLabel("Nachname");
-			TextField mailaddress = new TextField();
-			mailaddress.setValue(user.getMailAddress());
-			mailaddress.setLabel(TextConstants.MAIL_ADDRESS);
+			TextField firstname = prepareFirstnameTextField(user);
+			TextField lastname = prepareLastnameTextField(user);
+			TextField mailaddress = prepareMailadressTextField(user);
 			Checkbox checkbox = new Checkbox("Fahrer", user.isFahrer());
+			
+			Button changePassword = new Button("Passwort Ändern");
+			changePassword.addClickListener(evt -> changePasswordDialog.open());
 
 			Button save = new Button("Speichern");
 			save.addClickListener(evt -> updateUser(firstname.getValue(), lastname.getValue(), mailaddress.getValue(),
 					checkbox.getValue()));
 
-			add(firstname, lastname, mailaddress, checkbox, save);
+			add(firstname, lastname, mailaddress, checkbox, changePassword, save);
 		} else
 		{
 			H4 label = new H4(TextConstants.NOT_LOGGED_IN_MESSAGE);
 			add(label);
 		}
+	}
+
+	public TextField prepareMailadressTextField(User user)
+	{
+		TextField mailaddress = new TextField();
+		mailaddress.setValue(user.getMailAddress());
+		mailaddress.setLabel(TextConstants.MAIL_ADDRESS);
+		return mailaddress;
+	}
+
+	public TextField prepareLastnameTextField(User user)
+	{
+		TextField lastname = new TextField();
+		lastname.setValue(user.getLastName());
+		lastname.setLabel("Nachname");
+		return lastname;
+	}
+
+	public TextField prepareFirstnameTextField(User user)
+	{
+		TextField firstname = new TextField();
+		firstname.setValue(user.getFirstName());
+		firstname.setLabel("Vorname");
+		return firstname;
 	}
 
 	private void updateUser(String firstname, String lastname, String username, boolean isFahrer)
