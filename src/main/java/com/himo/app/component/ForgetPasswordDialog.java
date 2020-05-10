@@ -15,7 +15,6 @@ import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.validator.EmailValidator;
@@ -29,10 +28,8 @@ public class ForgetPasswordDialog extends Dialog
 {
 
 	private static final long serialVersionUID = 2214540533394292409L;
-	
+
 	private TextField mailAddress = new TextField();
-	private PasswordField newPassword = new PasswordField();
-	private PasswordField newPasswordRetype = new PasswordField();
 	private Label errorLabel = new Label();
 
 	@Autowired
@@ -43,23 +40,20 @@ public class ForgetPasswordDialog extends Dialog
 	{
 		VerticalLayout layout = new VerticalLayout();
 		layout.addClassName("centered-content");
-		
+
 		H2 title = new H2("Neues Passwort vergeben");
 		mailAddress = prepareEMailField();
-		
+
 		errorLabel.addClassName("text-red");
 
-		newPassword.setLabel(TextConstants.NEW_PASSWORD);
-		newPasswordRetype.setLabel(TextConstants.NEW_PASSWORD_RETYPE);
-		
 		Button submit = new Button();
 		submit.addClickListener(ent -> validate(mailAddress.getValue()));
 		submit.setText("zurücksetzen");
 
 		setCloseOnEsc(true);
 		setSizeFull();
-		
-		layout.add(title, mailAddress, newPassword, newPasswordRetype, errorLabel, submit);
+
+		layout.add(title, mailAddress, errorLabel, submit);
 		add(layout);
 
 	}
@@ -80,17 +74,14 @@ public class ForgetPasswordDialog extends Dialog
 		if (user == null)
 		{
 			errorLabel.setText("Benutzer ist nicht registriert");
-			
-		}
-		if(user != null && !newPassword.getValue().equals(newPasswordRetype.getValue()))
+
+		} else
 		{
-			errorLabel.setText("Passwörter sind nicht gleich");
-		}
-		if(user != null && newPassword.getValue().equals(newPasswordRetype.getValue()))
-		{
-			user.setPassword(newPasswordRetype.getValue());
-			userService.update(user);
-			Notification.show("Passwort für " + user.getMailAddress() + " zurückgesetzt");
+			// TODO add send mail and generate random password
+//			user.setPassword(encoder.encode(randomPassword));
+//			userService.update(user);
+//			Notification.show("Passwort für " + user.getMailAddress() + " zurückgesetzt");
+			Notification.show("not implemented yet");
 			close();
 		}
 	}
