@@ -5,6 +5,10 @@
 
 Import the project to the IDE of your choosing as a Maven project.
 
+After importing the maven project, you need to change the "spring.datasource.url" in your application.properties.
+
+You find the databasefile in the path myhimoapp/src/main/resources/data/demo, but you need add you personal project path. There is some sample data inside, the databasefiles are part of .gitignore, so please just check in, if the schema changes.
+
 Run the application using `mvn spring-boot:run` or by running the `Application` class directly from your IDE.
 
 Open http://localhost:80/ in your browser.
@@ -21,6 +25,6 @@ To run Integration Tests, execute `mvn verify -Pintegration-tests`.
 ## Database
 
 The database is a local H2 database. Open the H2 console while the server is running on 
-localhost:8080/h2-console
+localhost:80/h2-console
 
 If your put a "data.sql" in src/main/resources, it will be executed every time you start the server
