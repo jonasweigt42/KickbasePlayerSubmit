@@ -4,13 +4,15 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.vaadin.gatanaso.MultiselectComboBox;
 
 import com.himo.app.constants.TextConstants;
+import com.himo.app.entity.submit.PlayerSubmit;
 import com.himo.app.entity.user.User;
 import com.himo.app.service.spieltag.SpieltagService;
+import com.himo.app.service.submit.PlayerSubmitService;
 import com.himo.app.userinfo.UserInfo;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -38,6 +40,12 @@ public class StartView extends VerticalLayout
 	
 	@Autowired
 	private SpieltagService spieltagService;
+	
+	@Autowired
+	private PlayerSubmitService playerSubmitService;
+	
+	private ComboBox<String> select = new ComboBox<>();
+	private TextField player = new TextField();
 
 	@PostConstruct
 	public void init()
@@ -63,13 +71,12 @@ public class StartView extends VerticalLayout
 		if(user != null)
 		{
 			label.setText("Hi " + user.getFirstName() + "! Submitte mal");
-			MultiselectComboBox<String> select = new MultiselectComboBox<>();
 			select.setItems(spieltagService.findAll().stream().map(s -> s.getName()));
 			select.setLabel("Spieltag");
-			TextField player = new TextField();
 			player.setLabel("Spielername");
 			
 			Button letsGo = new Button(TextConstants.LETSGO);
+			letsGo.addClickListener(evt -> saveSubmit(player.getValue(), select.getValue()));
 			add(label, select, player, letsGo);
 
 		}
@@ -78,6 +85,24 @@ public class StartView extends VerticalLayout
 			label.setText(TextConstants.NOT_LOGGED_IN_MESSAGE);
 		}
 		return label;
+	}
+
+	private void saveSubmit(String spielerName, String spieltag)
+	{
+		PlayerSubmit submit = createSubmit(spielerName, spieltag);
+		playerSubmitService.save(submit);
+		player.clear();
+		select.clear();
+	}
+
+	private PlayerSubmit createSubmit(String spielerName, String spieltag)
+	{
+		PlayerSubmit submit = new PlayerSubmit();
+		submit.setPlayerName(spielerName);
+		submit.setSpieltag(spieltag);
+		submit.setSaison("2021/2022");
+		submit.setUserName(userInfo.getLoggedInUser().getFirstName());
+		return submit;
 	}
 	
 }

@@ -11,8 +11,7 @@ import com.himo.app.event.UpdateLoginEvent;
 import com.himo.app.userinfo.UserInfo;
 import com.himo.app.view.ProfileView;
 import com.himo.app.view.StartView;
-import com.himo.app.view.trip.ProvideTripView;
-import com.himo.app.view.trip.SearchTripView;
+import com.himo.app.view.StatsView;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -42,13 +41,10 @@ public class Login extends Dialog implements ApplicationListener<UpdateLoginEven
 	private ForgetPasswordDialog forgotPasswordDialog;
 
 	@Autowired
-	private SearchTripView searchTripView;
-
+	private StatsView statsView;
+	
 	@Autowired
 	private StartView startView;
-
-	@Autowired
-	private ProvideTripView provideTripView;
 
 	@Autowired
 	private ProfileView profileView;
@@ -124,9 +120,8 @@ public class Login extends Dialog implements ApplicationListener<UpdateLoginEven
 
 	private void updateViews()
 	{
-		searchTripView.loadContent();
+		statsView.loadContent();
 		startView.loadContent();
-		provideTripView.loadContent();
 		profileView.loadContent();
 	}
 

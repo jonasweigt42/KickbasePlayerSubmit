@@ -85,6 +85,7 @@ public class MainView extends AppLayout
 		final List<Tab> tabs = new ArrayList<>();
 		tabs.add(createTab("Spieler Submit", StartView.class));
 		tabs.add(createTab("Profil", ProfileView.class));
+		tabs.add(createTab("Statistiken", StatsView.class));
 		return tabs.toArray(new Tab[tabs.size()]);
 	}
 

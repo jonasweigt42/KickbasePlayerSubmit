@@ -25,6 +25,18 @@ public class PlayerSubmit implements Serializable{
 	@Column
 	private String spieltag;
 	@Column
+	private int punkte;
+	
+	
+	public int getPunkte()
+	{
+		return punkte;
+	}
+	public void setPunkte(int punkte)
+	{
+		this.punkte = punkte;
+	}
+	@Column
 	private String saison;
 	
 	public String getPlayerName()
