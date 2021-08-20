@@ -26,4 +26,39 @@ public class PlayerSubmit implements Serializable{
 	private String spieltag;
 	@Column
 	private String saison;
+	
+	public String getPlayerName()
+	{
+		return playerName;
+	}
+	public void setPlayerName(String playerName)
+	{
+		this.playerName = playerName;
+	}
+	public String getUserName()
+	{
+		return userName;
+	}
+	public void setUserName(String userName)
+	{
+		this.userName = userName;
+	}
+	public String getSpieltag()
+	{
+		return spieltag;
+	}
+	public void setSpieltag(String spieltag)
+	{
+		this.spieltag = spieltag;
+	}
+	public String getSaison()
+	{
+		return saison;
+	}
+	public void setSaison(String saison)
+	{
+		this.saison = saison;
+	}
+	
+	
 }

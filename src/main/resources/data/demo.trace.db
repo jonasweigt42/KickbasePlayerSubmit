@@ -1381,3 +1381,11 @@ DELETE FROM[*] USER WHERE ID = 5 "; SQL statement:
 SELECT * FROM USER 
 
 delete from User where id = 5 [42000-199]
+2021-08-20 11:34:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabelle "SPIELTAG" nicht gefunden
+Table "SPIELTAG" not found; SQL statement:
+select spieltag0_.id as id1_1_, spieltag0_.name as name2_1_ from spieltag spieltag0_ [42102-199]
+2021-08-20 11:35:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabelle "SPIELTAG" nicht gefunden
+Table "SPIELTAG" not found; SQL statement:
+select spieltag0_.id as id1_1_, spieltag0_.name as name2_1_ from spieltag spieltag0_ [42102-199]

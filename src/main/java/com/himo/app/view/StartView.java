@@ -8,6 +8,7 @@ import org.vaadin.gatanaso.MultiselectComboBox;
 
 import com.himo.app.constants.TextConstants;
 import com.himo.app.entity.user.User;
+import com.himo.app.service.spieltag.SpieltagService;
 import com.himo.app.userinfo.UserInfo;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -34,6 +35,9 @@ public class StartView extends VerticalLayout
 	
 	@Autowired
 	private UserInfo userInfo;
+	
+	@Autowired
+	private SpieltagService spieltagService;
 
 	@PostConstruct
 	public void init()
@@ -60,6 +64,7 @@ public class StartView extends VerticalLayout
 		{
 			label.setText("Hi " + user.getFirstName() + "! Submitte mal");
 			MultiselectComboBox<String> select = new MultiselectComboBox<>();
+			select.setItems(spieltagService.findAll().stream().map(s -> s.getName()));
 			select.setLabel("Spieltag");
 			TextField player = new TextField();
 			player.setLabel("Spielername");
