@@ -28,22 +28,12 @@ public class User implements Serializable
 	private String mailAddress;
 	@Column
 	private String password;
-	
-	@Column
-	private boolean isFahrer;
+
 	
 	
 	public int getId()
 	{
 		return id;
-	}
-	public void setFahrer(boolean isFahrer)
-	{
-		this.isFahrer = isFahrer;
-	}
-	public boolean isFahrer()
-	{
-		return isFahrer;
 	}
 	public String getMailAddress()
 	{

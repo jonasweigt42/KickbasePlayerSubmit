@@ -11,7 +11,6 @@ import com.himo.app.entity.user.User;
 import com.himo.app.service.user.UserService;
 import com.himo.app.userinfo.UserInfo;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.notification.Notification;
@@ -55,16 +54,14 @@ public class ProfileView extends VerticalLayout
 			TextField firstname = prepareFirstnameTextField(user);
 			TextField lastname = prepareLastnameTextField(user);
 			TextField mailaddress = prepareMailadressTextField(user);
-			Checkbox checkbox = new Checkbox("Fahrer", user.isFahrer());
 			
 			Button changePassword = new Button("Passwort Ändern");
 			changePassword.addClickListener(evt -> changePasswordDialog.open());
 
 			Button save = new Button("Speichern");
-			save.addClickListener(evt -> updateUser(firstname.getValue(), lastname.getValue(), mailaddress.getValue(),
-					checkbox.getValue()));
+			save.addClickListener(evt -> updateUser(firstname.getValue(), lastname.getValue(), mailaddress.getValue()));
 
-			add(firstname, lastname, mailaddress, checkbox, changePassword, save);
+			add(firstname, lastname, mailaddress, changePassword, save);
 		} else
 		{
 			H4 label = new H4(TextConstants.NOT_LOGGED_IN_MESSAGE);
@@ -96,13 +93,12 @@ public class ProfileView extends VerticalLayout
 		return firstname;
 	}
 
-	private void updateUser(String firstname, String lastname, String username, boolean isFahrer)
+	private void updateUser(String firstname, String lastname, String username)
 	{
 		User user = userInfo.getLoggedInUser();
 		user.setFirstName(firstname);
 		user.setLastName(lastname);
 		user.setMailAddress(username);
-		user.setFahrer(isFahrer);
 		userService.update(user);
 		Notification.show("Benutzer wurde aktualisiert!");
 	}

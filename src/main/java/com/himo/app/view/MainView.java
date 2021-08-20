@@ -3,37 +3,15 @@ package com.himo.app.view;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Properties;
-import java.util.Set;
 
 import javax.annotation.PostConstruct;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.Select;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import com.himo.app.component.Login;
 import com.himo.app.component.Logo;
-import com.himo.app.view.trip.ProvideTripView;
-import com.himo.app.view.trip.SearchTripView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -62,7 +40,7 @@ import com.vaadin.flow.theme.lumo.Lumo;
  * tab/window.
  */
 
-@PWA(name = "High Mobility Application", shortName = "HiMo")
+@PWA(name = "Kickbase Player Submit", shortName = "KPS")
 @JsModule("./styles/shared-styles.js")
 @CssImport("./styles/shared-styles.css")
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
@@ -105,9 +83,7 @@ public class MainView extends AppLayout
 	private Tab[] getAvailableTabs()
 	{
 		final List<Tab> tabs = new ArrayList<>();
-		tabs.add(createTab("Start", StartView.class));
-		tabs.add(createTab("Fahrt finden", SearchTripView.class));
-		tabs.add(createTab("Fahrt anbieten", ProvideTripView.class));
+		tabs.add(createTab("Spieler Submit", StartView.class));
 		tabs.add(createTab("Profil", ProfileView.class));
 		return tabs.toArray(new Tab[tabs.size()]);
 	}

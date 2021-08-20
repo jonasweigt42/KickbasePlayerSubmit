@@ -21,7 +21,7 @@ public class Logo extends HorizontalLayout
 	public void init()
 	{
 		Icon icon = new Icon(VaadinIcon.HOME);
-		Label label = new Label("HiMo");
+		Label label = new Label("Player Submit");
 		add(icon, label);
 		
 	}

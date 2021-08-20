@@ -139,7 +139,7 @@ public class Login extends Dialog implements ApplicationListener<UpdateLoginEven
 	private LoginI18n prepareI18n()
 	{
 		LoginI18n i18n = LoginI18n.createDefault();
-		i18n.getForm().setTitle("Willkommen bei HiMo");
+		i18n.getForm().setTitle("Kickbase Player Submit");
 		i18n.getForm().setUsername(TextConstants.MAIL_ADDRESS);
 		i18n.getForm().setPassword(TextConstants.PASSWORD);
 		i18n.getForm().setForgotPassword(TextConstants.FORGET_PASSWORD);

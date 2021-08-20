@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import com.himo.app.constants.TextConstants;
 import com.himo.app.entity.user.User;
-import com.himo.app.travel.TravelData;
 import com.himo.app.userinfo.UserInfo;
 import com.himo.app.view.MainView;
 import com.vaadin.flow.component.UI;
@@ -90,7 +89,6 @@ public class ProvideTripView extends VerticalLayout
 
 	private void saveAndNavigate(String start, String dest, LocalDate date, LocalTime time)
 	{
-		userInfo.setTravelData(new TravelData(start, dest, date, time));
 		UI.getCurrent().navigate(ProvideTripOpportunityView.class);
 	}
 

@@ -4,21 +4,26 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.vaadin.gatanaso.MultiselectComboBox;
 
 import com.himo.app.constants.TextConstants;
 import com.himo.app.entity.user.User;
 import com.himo.app.userinfo.UserInfo;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.spring.annotation.UIScope;
 
 
+
+@RouteAlias(value = "", layout = MainView.class)
 @Route(value = "start", layout = MainView.class)
-@PageTitle("Start")
+@PageTitle("Submit")
 @CssImport("./styles/shared-styles.css")
 @UIScope
 @Component
@@ -41,11 +46,11 @@ public class StartView extends VerticalLayout
 	public void loadContent()
 	{
 		removeAll();
-		H3 headline = new H3("Herzlich Willkommen bei HiMo, deiner Mobilitätsplattform!");
 		H4 personalLabel = preparePersonalLabel();
 		
-		add(headline, personalLabel);
+		add(personalLabel);
 	}
+	
 
 	private H4 preparePersonalLabel()
 	{
@@ -53,7 +58,15 @@ public class StartView extends VerticalLayout
 		User user = userInfo.getLoggedInUser();
 		if(user != null)
 		{
-			label.setText("Hi " + user.getFirstName() + "! :) Schau dich gern ein bisschen um!");
+			label.setText("Hi " + user.getFirstName() + "! Submitte mal");
+			MultiselectComboBox<String> select = new MultiselectComboBox<>();
+			select.setLabel("Spieltag");
+			TextField player = new TextField();
+			player.setLabel("Spielername");
+			
+			Button letsGo = new Button(TextConstants.LETSGO);
+			add(label, select, player, letsGo);
+
 		}
 		else
 		{
