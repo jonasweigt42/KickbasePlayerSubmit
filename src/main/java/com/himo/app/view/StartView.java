@@ -73,6 +73,7 @@ public class StartView extends VerticalLayout
 			label.setText("Hi " + user.getFirstName() + "! Submitte mal");
 			select.setItems(spieltagService.findAll().stream().map(s -> s.getName()));
 			select.setLabel("Spieltag");
+			select.addValueChangeListener(evt -> fillPlayerLabel());
 			player.setLabel("Spielername");
 			
 			Button letsGo = new Button(TextConstants.LETSGO);
@@ -85,6 +86,11 @@ public class StartView extends VerticalLayout
 			label.setText(TextConstants.NOT_LOGGED_IN_MESSAGE);
 		}
 		return label;
+	}
+
+	private void fillPlayerLabel()
+	{
+		// TODO Auto-generated method stub
 	}
 
 	private void saveSubmit(String spielerName, String spieltag)

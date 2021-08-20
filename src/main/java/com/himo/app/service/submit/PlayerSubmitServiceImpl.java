@@ -1,6 +1,7 @@
 package com.himo.app.service.submit;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
@@ -22,7 +23,6 @@ public class PlayerSubmitServiceImpl implements PlayerSubmitService
 		dao.setClazz(PlayerSubmit.class);
 	}
 
-	
 	@Override
 	public List<PlayerSubmit> findAll()
 	{
@@ -39,6 +39,25 @@ public class PlayerSubmitServiceImpl implements PlayerSubmitService
 	public void save(PlayerSubmit submit)
 	{
 		dao.save(submit);
+	}
+
+	@Override
+	public PlayerSubmit find(String userName, String spieltag, String saison)
+	{
+		Optional<PlayerSubmit> submitOptional = dao.findAll().stream().filter(s -> s.getUserName().equals(userName))
+				.filter(s -> s.getSpieltag().equals(spieltag)).filter(s -> s.getSaison().equals(saison)).findAny();
+		if (submitOptional.isPresent())
+		{
+			return submitOptional.get();
+		}
+		return null;
+	}
+
+	@Override
+	public PlayerSubmit find(String userName, String spieltag, String spielerName, String saison)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

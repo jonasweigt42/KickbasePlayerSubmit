@@ -11,4 +11,10 @@ public interface PlayerSubmitService
 	void update(PlayerSubmit submit);
 
 	void save(PlayerSubmit submit);
+	
+	PlayerSubmit find(String userName, String spieltag, String saison);
+	
+	PlayerSubmit find(String userName, String spieltag, String spielerName, String saison);
+	
+	
 }
