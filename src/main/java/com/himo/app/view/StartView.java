@@ -90,7 +90,7 @@ public class StartView extends VerticalLayout
 
 	private void fillPlayerLabel()
 	{
-		// TODO Auto-generated method stub
+		
 	}
 
 	private void saveSubmit(String spielerName, String spieltag)
