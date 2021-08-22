@@ -15,6 +15,10 @@ Open http://localhost:8080/ in your browser.
 
 If you want to run the application locally in the production mode, run `mvn spring-boot:run -Pproduction`.
 
+For uploading the jar to aws, build with
+
+"mvn clean package -Pproduction -DskipTests"
+
 To run Integration Tests, execute `mvn verify -Pintegration-tests`.
 
 ## More Information
