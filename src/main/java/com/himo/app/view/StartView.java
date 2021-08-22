@@ -22,8 +22,6 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import com.vaadin.flow.spring.annotation.UIScope;
 
-
-
 @RouteAlias(value = "", layout = MainView.class)
 @Route(value = "start", layout = MainView.class)
 @PageTitle("Submit")
@@ -34,24 +32,26 @@ public class StartView extends VerticalLayout
 {
 
 	private static final long serialVersionUID = 1686035666342372757L;
-	
+
 	@Autowired
 	private UserInfo userInfo;
-	
+
 	@Autowired
 	private SpieltagService spieltagService;
-	
+
 	@Autowired
 	private PlayerSubmitService playerSubmitService;
-	
+
 	private ComboBox<String> select = new ComboBox<>();
 	private TextField player = new TextField();
+
+	private static final String SAISON = "2021/2022";
 
 	@PostConstruct
 	public void init()
 	{
 		addClassName("centered-content");
-		
+
 		loadContent();
 	}
 
@@ -59,29 +59,27 @@ public class StartView extends VerticalLayout
 	{
 		removeAll();
 		H4 personalLabel = preparePersonalLabel();
-		
+
 		add(personalLabel);
 	}
-	
 
 	private H4 preparePersonalLabel()
 	{
 		H4 label = new H4();
 		User user = userInfo.getLoggedInUser();
-		if(user != null)
+		if (user != null)
 		{
 			label.setText("Hi " + user.getFirstName() + "! Submitte mal");
 			select.setItems(spieltagService.findAll().stream().map(s -> s.getName()));
 			select.setLabel("Spieltag");
 			select.addValueChangeListener(evt -> fillPlayerLabel());
 			player.setLabel("Spielername");
-			
+
 			Button letsGo = new Button(TextConstants.LETSGO);
 			letsGo.addClickListener(evt -> saveSubmit(player.getValue(), select.getValue()));
 			add(label, select, player, letsGo);
 
-		}
-		else
+		} else
 		{
 			label.setText(TextConstants.NOT_LOGGED_IN_MESSAGE);
 		}
@@ -90,13 +88,23 @@ public class StartView extends VerticalLayout
 
 	private void fillPlayerLabel()
 	{
-		
+		PlayerSubmit submit = playerSubmitService.find(userInfo.getLoggedInUser().getFirstName(), select.getValue(),
+				SAISON);
+		if (submit != null)
+		{
+			player.setValue(submit.getPlayerName());
+		} else
+		{
+			player.setValue("");
+		}
 	}
 
 	private void saveSubmit(String spielerName, String spieltag)
 	{
 		PlayerSubmit submit = createSubmit(spielerName, spieltag);
+
 		playerSubmitService.save(submit);
+
 		player.clear();
 		select.clear();
 	}
@@ -106,9 +114,9 @@ public class StartView extends VerticalLayout
 		PlayerSubmit submit = new PlayerSubmit();
 		submit.setPlayerName(spielerName);
 		submit.setSpieltag(spieltag);
-		submit.setSaison("2021/2022");
+		submit.setSaison(SAISON);
 		submit.setUserName(userInfo.getLoggedInUser().getFirstName());
 		return submit;
 	}
-	
+
 }

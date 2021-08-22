@@ -56,7 +56,13 @@ public class PlayerSubmitServiceImpl implements PlayerSubmitService
 	@Override
 	public PlayerSubmit find(String userName, String spieltag, String spielerName, String saison)
 	{
-		// TODO Auto-generated method stub
+		Optional<PlayerSubmit> submitOptional = dao.findAll().stream().filter(s -> s.getUserName().equals(userName))
+				.filter(s -> s.getSpieltag().equals(spieltag)).filter(s -> s.getSaison().equals(saison))
+				.filter(s -> s.getPlayerName().equals(spielerName)).findAny();
+		if (submitOptional.isPresent())
+		{
+			return submitOptional.get();
+		}
 		return null;
 	}
 
