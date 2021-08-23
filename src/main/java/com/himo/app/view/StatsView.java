@@ -46,10 +46,10 @@ public class StatsView extends VerticalLayout
 		if (user != null)
 		{
 			Grid<PlayerSubmit> grid = new Grid<>();
-			grid.addColumn(PlayerSubmit::getUserName).setHeader("Name");
-			grid.addColumn(PlayerSubmit::getSpieltag).setHeader("Spieltag");
-			grid.addColumn(PlayerSubmit::getPlayerName).setHeader("Spielername");
-			grid.addColumn(PlayerSubmit::getPunkte).setHeader("Punkte");
+			grid.addColumn(PlayerSubmit::getUserName).setHeader("Name").setSortable(true);
+			grid.addColumn(PlayerSubmit::getSpieltag).setHeader("Spieltag").setSortable(true);
+			grid.addColumn(PlayerSubmit::getPlayerName).setHeader("Spielername").setSortable(true);
+			grid.addColumn(PlayerSubmit::getPunkte).setHeader("Punkte").setSortable(true);
 			grid.addThemeVariants(GridVariant.LUMO_COLUMN_BORDERS, GridVariant.LUMO_ROW_STRIPES);
 			grid.setItems(playerSubmitService.findAll());
 			add(grid);
