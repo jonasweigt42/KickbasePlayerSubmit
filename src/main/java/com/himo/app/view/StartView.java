@@ -101,10 +101,19 @@ public class StartView extends VerticalLayout
 
 	private void saveSubmit(String spielerName, String spieltag)
 	{
-		PlayerSubmit submit = createSubmit(spielerName, spieltag);
-
-		playerSubmitService.save(submit);
-
+		PlayerSubmit existingSubmit = playerSubmitService.find(userInfo.getLoggedInUser().getFirstName(), spieltag,
+				SAISON);
+		if(existingSubmit != null)
+		{
+			existingSubmit.setPlayerName(spielerName);
+			playerSubmitService.update(existingSubmit);
+		}
+		else
+		{
+			PlayerSubmit newSubmit = createSubmit(spielerName, spieltag);
+			playerSubmitService.save(newSubmit);
+		}
+		
 		player.clear();
 		select.clear();
 	}
