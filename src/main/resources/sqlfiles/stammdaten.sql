@@ -1,66 +1,47 @@
-DROP TABLE IF EXISTS USER;
- 
-CREATE TABLE USER (
-  id INT AUTO_INCREMENT  PRIMARY KEY,
-  first_name VARCHAR(250) NOT NULL,
-  last_name VARCHAR(250) NOT NULL,
-  mail_address VARCHAR(250) NOT NULL,
-  password VARCHAR(250) NOT NULL
-);
-
-CREATE TABLE PLAYER_SUBMIT (
-  id INT AUTO_INCREMENT  PRIMARY KEY,
-  player_name VARCHAR(250) NOT NULL,
-  user_name VARCHAR(250) NOT NULL,
-  spieltag VARCHAR(250) NOT NULL,
-  saison VARCHAR(250) NOT NULL,
-  punkte INT
-);
-
-CREATE TABLE SPIELTAG (
-  id INT AUTO_INCREMENT  PRIMARY KEY,
-  name VARCHAR(250) NOT NULL
-);
-
 INSERT INTO SPIELTAG (name) VALUES
-('Spieltag 1'),
-('Spieltag 2'),
-('Spieltag 3'),
-('Spieltag 4'),
-('Spieltag 5'),
-('Spieltag 6'),
-('Spieltag 7'),
-('Spieltag 8'),
-('Spieltag 9'),
-('Spieltag 10'),
-('Spieltag 11'),
-('Spieltag 12'),
-('Spieltag 13'),
-('Spieltag 14'),
-('Spieltag 15'),
-('Spieltag 16'),
-('Spieltag 17'),
-('Spieltag 18'),
-('Spieltag 19'),
-('Spieltag 20'),
-('Spieltag 21'),
-('Spieltag 22'),
-('Spieltag 23'),
-('Spieltag 24'),
-('Spieltag 25'),
-('Spieltag 26'),
-('Spieltag 27'),
-('Spieltag 28'),
-('Spieltag 29'),
-('Spieltag 30'),
-('Spieltag 31'),
-('Spieltag 32'),
-('Spieltag 33'),
-('Spieltag 34');
+('1'),
+('2'),
+('3'),
+('4'),
+('5'),
+('6'),
+('7'),
+('8'),
+('9'),
+('10'),
+('11'),
+('12'),
+('13'),
+('14'),
+('15'),
+('16'),
+('17'),
+('18'),
+('19'),
+('20'),
+('21'),
+('22'),
+('23'),
+('24'),
+('25'),
+('26'),
+('27'),
+('28'),
+('29'),
+('30'),
+('31'),
+('32'),
+('33'),
+('34');
 
 
 INSERT INTO USER (first_name, last_name, mail_address, password) VALUES
-  ('Jonas', 'Weigt', 'jonas@skatrunde.de','jonas'),
-  ('Marcel', 'Hosenthien', 'hose@skatrunde.de', 'hose'),
-  ('Franz', 'Deelmann', 'franz@skatrunde.de', 'franz');
+  ('Jonas', 'Weigt', 'jonas@skatrunde.de','$2a$10$6OrUGZkGY64EMXVw6dGJ1.zRiqU8tDSJHwp8Zrb4cPQIxspBCxSnO'),
+  ('Hose', 'Hosenthien', 'hose@skatrunde.de', '$2a$10$EdQewR3e4dBxxmjZTnM60OdCWNeWEUkODQ1VkjneOrrCodL/X05iq'),
+  ('Franz', 'Deelmann', 'franz@skatrunde.de', '$2a$10$A..xU6lE3QiOttkzcW1Ow.MpzlbI8ys7tcQ4ctcEnKMe5iRl82PNm');
   
+ 
+INSERT INTO PLAYER_SUBMIT(player_name, user_name, spieltag, saison, punkte) VALUES
+('Stindl', 'Jonas', '2', '2021/2022', -57),
+('Kramaric', 'Hose', '2', '2021/2022', 112),
+('Reus', 'Franz', '2', '2021/2022', 56);
