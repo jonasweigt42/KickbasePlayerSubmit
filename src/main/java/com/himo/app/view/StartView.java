@@ -15,6 +15,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H4;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
@@ -112,6 +113,7 @@ public class StartView extends VerticalLayout
 		{
 			PlayerSubmit newSubmit = createSubmit(spielerName, spieltag);
 			playerSubmitService.save(newSubmit);
+			Notification.show(spielerName + " für Spieltag " + spieltag + " submitted");
 		}
 		
 		player.clear();
