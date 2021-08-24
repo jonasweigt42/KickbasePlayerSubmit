@@ -42,6 +42,6 @@ INSERT INTO USER (user_name, password) VALUES
   
  
 INSERT INTO PLAYER_SUBMIT(player_name, user_name, spieltag, saison, punkte) VALUES
-('Stindl', 'Sigi', '2', '2021/2022', -57),
-('Kramaric', 'Hose', '2', '2021/2022', 112),
-('Reus', 'Franz', '2', '2021/2022', 56);
+('Stindl', 'sigi', '2', '2021/2022', -57),
+('Kramaric', 'hose', '2', '2021/2022', 112),
+('Reus', 'franz', '2', '2021/2022', 56);

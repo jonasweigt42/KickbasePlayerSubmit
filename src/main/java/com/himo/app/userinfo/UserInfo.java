@@ -49,7 +49,7 @@ public class UserInfo implements Serializable
 	{
 		User user = userService.getUserByUserName(mailAddress);
 
-		if (encoder.matches(password, user.getPassword()))
+		if (user != null && encoder.matches(password, user.getPassword()))
 		{
 			return user;
 		}

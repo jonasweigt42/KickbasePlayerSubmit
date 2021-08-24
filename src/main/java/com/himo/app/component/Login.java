@@ -20,6 +20,7 @@ import com.vaadin.flow.component.login.AbstractLogin.ForgotPasswordEvent;
 import com.vaadin.flow.component.login.AbstractLogin.LoginEvent;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.login.LoginI18n;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.spring.annotation.UIScope;
 
 
@@ -113,6 +114,10 @@ public class Login extends Dialog implements ApplicationListener<UpdateLoginEven
 					prepareButtonLabel();
 					updateViews();
 					close();
+				}
+				else
+				{
+					Notification.show("Name oder Passwort stimmen nicht");
 				}
 			}
 		});
