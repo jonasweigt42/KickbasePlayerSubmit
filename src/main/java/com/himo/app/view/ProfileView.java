@@ -51,17 +51,15 @@ public class ProfileView extends VerticalLayout
 		User user = userInfo.getLoggedInUser();
 		if (user != null)
 		{
-			TextField firstname = prepareFirstnameTextField(user);
-			TextField lastname = prepareLastnameTextField(user);
-			TextField mailaddress = prepareMailadressTextField(user);
+			TextField mailaddress = prepareUserNameTextField(user);
 			
 			Button changePassword = new Button("Passwort Ändern");
 			changePassword.addClickListener(evt -> changePasswordDialog.open());
 
 			Button save = new Button("Speichern");
-			save.addClickListener(evt -> updateUser(firstname.getValue(), lastname.getValue(), mailaddress.getValue()));
+			save.addClickListener(evt -> updateUser(mailaddress.getValue()));
 
-			add(firstname, lastname, mailaddress, changePassword, save);
+			add(mailaddress, changePassword, save);
 		} else
 		{
 			H4 label = new H4(TextConstants.NOT_LOGGED_IN_MESSAGE);
@@ -69,36 +67,18 @@ public class ProfileView extends VerticalLayout
 		}
 	}
 
-	public TextField prepareMailadressTextField(User user)
+	public TextField prepareUserNameTextField(User user)
 	{
-		TextField mailaddress = new TextField();
-		mailaddress.setValue(user.getMailAddress());
-		mailaddress.setLabel(TextConstants.MAIL_ADDRESS);
-		return mailaddress;
+		TextField userName = new TextField();
+		userName.setValue(user.getUserName());
+		userName.setLabel(TextConstants.USERNAME);
+		return userName;
 	}
 
-	public TextField prepareLastnameTextField(User user)
-	{
-		TextField lastname = new TextField();
-		lastname.setValue(user.getLastName());
-		lastname.setLabel("Nachname");
-		return lastname;
-	}
-
-	public TextField prepareFirstnameTextField(User user)
-	{
-		TextField firstname = new TextField();
-		firstname.setValue(user.getFirstName());
-		firstname.setLabel("Vorname");
-		return firstname;
-	}
-
-	private void updateUser(String firstname, String lastname, String username)
+	private void updateUser(String username)
 	{
 		User user = userInfo.getLoggedInUser();
-		user.setFirstName(firstname);
-		user.setLastName(lastname);
-		user.setMailAddress(username);
+		user.setUserName(username);
 		userService.update(user);
 		Notification.show("Benutzer wurde aktualisiert!");
 	}

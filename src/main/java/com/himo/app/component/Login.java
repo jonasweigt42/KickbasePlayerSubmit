@@ -135,7 +135,7 @@ public class Login extends Dialog implements ApplicationListener<UpdateLoginEven
 	{
 		LoginI18n i18n = LoginI18n.createDefault();
 		i18n.getForm().setTitle("Kickbase Player Submit");
-		i18n.getForm().setUsername(TextConstants.MAIL_ADDRESS);
+		i18n.getForm().setUsername(TextConstants.USERNAME);
 		i18n.getForm().setPassword(TextConstants.PASSWORD);
 		i18n.getForm().setForgotPassword(TextConstants.FORGET_PASSWORD);
 		return i18n;

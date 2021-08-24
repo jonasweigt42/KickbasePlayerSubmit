@@ -83,7 +83,7 @@ public class ChangePasswordDialog extends Dialog
 		{
 			user.setPassword(encoder.encode(newPasswordRetype.getValue()));
 			userService.update(user);
-			Notification.show("Passwort für " + user.getMailAddress() + " geändert");
+			Notification.show("Passwort für " + user.getUserName() + " geändert");
 			close();
 			clearAll();
 		}

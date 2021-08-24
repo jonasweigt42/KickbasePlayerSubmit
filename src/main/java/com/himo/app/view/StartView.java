@@ -69,7 +69,7 @@ public class StartView extends VerticalLayout
 		User user = userInfo.getLoggedInUser();
 		if (user != null)
 		{
-			label.setText("Hi " + user.getFirstName() + "! Submitte mal");
+			label.setText("Hi " + user.getUserName() + "! Submitte mal");
 			select.setItems(spieltagService.findAll().stream().map(s -> s.getName()));
 			select.setLabel("Spieltag");
 			select.addValueChangeListener(evt -> fillPlayerLabel());
@@ -88,7 +88,7 @@ public class StartView extends VerticalLayout
 
 	private void fillPlayerLabel()
 	{
-		PlayerSubmit submit = playerSubmitService.find(userInfo.getLoggedInUser().getFirstName(), select.getValue(),
+		PlayerSubmit submit = playerSubmitService.find(userInfo.getLoggedInUser().getUserName(), select.getValue(),
 				SAISON);
 		if (submit != null)
 		{
@@ -101,7 +101,7 @@ public class StartView extends VerticalLayout
 
 	private void saveSubmit(String spielerName, String spieltag)
 	{
-		PlayerSubmit existingSubmit = playerSubmitService.find(userInfo.getLoggedInUser().getFirstName(), spieltag,
+		PlayerSubmit existingSubmit = playerSubmitService.find(userInfo.getLoggedInUser().getUserName(), spieltag,
 				SAISON);
 		if(existingSubmit != null)
 		{
@@ -124,7 +124,7 @@ public class StartView extends VerticalLayout
 		submit.setPlayerName(spielerName);
 		submit.setSpieltag(spieltag);
 		submit.setSaison(SAISON);
-		submit.setUserName(userInfo.getLoggedInUser().getFirstName());
+		submit.setUserName(userInfo.getLoggedInUser().getUserName());
 		return submit;
 	}
 

@@ -8,7 +8,7 @@ public interface UserService
 {
 	List<User> findAll();
 	
-	User getUserByMailAddress(String mailAddress);
+	User getUserByUserName(String userName);
 	
 	void update(User user);
 	

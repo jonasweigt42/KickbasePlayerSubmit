@@ -35,7 +35,7 @@ public class Register extends Dialog
 
 	private TextField firstName = new TextField();
 	private TextField lastName = new TextField();
-	private TextField mailAddress = new TextField();
+	private TextField userName = new TextField();
 	private PasswordField password = new PasswordField();
 	private PasswordField passwordRetype = new PasswordField();
 	private Label errorLabel = new Label();
@@ -65,17 +65,15 @@ public class Register extends Dialog
 		setCloseOnEsc(true);
 		setSizeFull();
 
-		layout.add(title, firstName, lastName, mailAddress, password, passwordRetype, errorLabel, submit);
+		layout.add(title, firstName, lastName, userName, password, passwordRetype, errorLabel, submit);
 		add(layout);
 
 	}
 
 	public void prepareFields()
 	{
-		mailAddress = prepareEMailField();
+		userName = prepareEMailField();
 		errorLabel.addClassName("text-red");
-		firstName.setLabel(TextConstants.FIRSTNAME);
-		lastName.setLabel(TextConstants.LASTNAME);
 		password.setLabel(TextConstants.PASSWORD);
 		passwordRetype.setLabel(TextConstants.PASSWORD_RETYPE);
 		submit.addClickListener(evt -> validateRegistration());
@@ -83,16 +81,16 @@ public class Register extends Dialog
 
 	public TextField prepareEMailField()
 	{
-		mailAddress.setLabel(TextConstants.MAIL_ADDRESS);
+		userName.setLabel(TextConstants.USERNAME);
 		Binder<User> binder = new Binder<>();
-		binder.forField(mailAddress).withValidator(new EmailValidator("bitte gib eine gültige E-Mail Adresse ein"))
-				.bind(User::getMailAddress, User::setMailAddress);
-		return mailAddress;
+		binder.forField(userName).withValidator(new EmailValidator("bitte gib eine gültige E-Mail Adresse ein"))
+				.bind(User::getUserName, User::setUserName);
+		return userName;
 	}
 
 	private void validateRegistration()
 	{
-		User user = userService.getUserByMailAddress(mailAddress.getValue());
+		User user = userService.getUserByUserName(userName.getValue());
 
 		if (user != null)
 		{
@@ -106,7 +104,7 @@ public class Register extends Dialog
 		{
 			User newUser = createUser();
 			userService.save(newUser);
-			userInfo.login(newUser.getMailAddress(), passwordRetype.getValue());
+			userInfo.login(newUser.getUserName(), passwordRetype.getValue());
 			close();
 			publisher.publishEvent(new UpdateLoginEvent(this));
 		}
@@ -115,9 +113,7 @@ public class Register extends Dialog
 	public User createUser()
 	{
 		User newUser = new User();
-		newUser.setFirstName(firstName.getValue());
-		newUser.setLastName(lastName.getValue());
-		newUser.setMailAddress(mailAddress.getValue());
+		newUser.setUserName(userName.getValue());
 
 		String encodedPassword = encoder.encode(passwordRetype.getValue());
 

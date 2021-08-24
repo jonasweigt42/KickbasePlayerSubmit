@@ -21,27 +21,21 @@ public class User implements Serializable
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column
-	private String firstName;
-	@Column
-	private String lastName;
-	@Column
-	private String mailAddress;
+	private String userName;
 	@Column
 	private String password;
-
 	
-	
+	public String getUserName()
+	{
+		return userName;
+	}
+	public void setUserName(String userName)
+	{
+		this.userName = userName;
+	}
 	public int getId()
 	{
 		return id;
-	}
-	public String getMailAddress()
-	{
-		return mailAddress;
-	}
-	public void setMailAddress(String mailAddress)
-	{
-		this.mailAddress = mailAddress;
 	}
 	public String getPassword()
 	{
@@ -50,22 +44,6 @@ public class User implements Serializable
 	public void setPassword(String password)
 	{
 		this.password = password;
-	}
-	public String getFirstName()
-	{
-		return firstName;
-	}
-	public void setFirstName(String firstName)
-	{
-		this.firstName = firstName;
-	}
-	public String getLastName()
-	{
-		return lastName;
-	}
-	public void setLastName(String lastName)
-	{
-		this.lastName = lastName;
 	}
 	
 }

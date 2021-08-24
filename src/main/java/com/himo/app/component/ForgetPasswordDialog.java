@@ -60,16 +60,16 @@ public class ForgetPasswordDialog extends Dialog
 
 	public TextField prepareEMailField()
 	{
-		mailAddress.setLabel(TextConstants.MAIL_ADDRESS);
+		mailAddress.setLabel(TextConstants.USERNAME);
 		Binder<User> binder = new Binder<>();
 		binder.forField(mailAddress).withValidator(new EmailValidator("bitte gib eine gültige E-Mail Adresse ein"))
-				.bind(User::getMailAddress, User::setMailAddress);
+				.bind(User::getUserName, User::setUserName);
 		return mailAddress;
 	}
 
 	private void validate(String mailAddress)
 	{
-		User user = userService.getUserByMailAddress(mailAddress);
+		User user = userService.getUserByUserName(mailAddress);
 
 		if (user == null)
 		{

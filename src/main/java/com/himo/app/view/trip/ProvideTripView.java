@@ -62,7 +62,7 @@ public class ProvideTripView extends VerticalLayout
 
 	public void addFieldsForUser(User user)
 	{
-		H4 label = new H4("Hi " + user.getFirstName() + ", wo fährst du hin?");
+		H4 label = new H4("Hi " + user.getUserName() + ", wo fährst du hin?");
 
 		TextField start = new TextField("Start");
 		TextField dest = new TextField("Ziel");

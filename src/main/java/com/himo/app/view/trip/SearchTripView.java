@@ -61,7 +61,7 @@ public class SearchTripView extends VerticalLayout
 
 	public void addFieldsForUser(User user)
 	{
-		H4 label = new H4("Hi " + user.getFirstName() + ", wo möchtest du hinfahren?");
+		H4 label = new H4("Hi " + user.getUserName() + ", wo möchtest du hinfahren?");
 
 		TextField start = new TextField("Start");
 		TextField dest = new TextField("Ziel");

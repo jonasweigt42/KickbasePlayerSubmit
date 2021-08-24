@@ -4,7 +4,7 @@ public class TextConstants
 {
 
 	public static final String TITLE = "HiMo";
-	public static final String MAIL_ADDRESS = "E-Mail";
+	public static final String USERNAME = "Nutzername";
 	public static final String FIRSTNAME = "Vorname";
 	public static final String LASTNAME = "Nachname";
 	public static final String PASSWORD = "Passwort";

@@ -30,13 +30,13 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public User getUserByMailAddress(String mailAddress)
+	public User getUserByUserName(String mailAddress)
 	{
 		List<User> users = dao.findAll();
 
 		for (User user : users)
 		{
-			if (user.getMailAddress().equals(mailAddress))
+			if (user.getUserName().equals(mailAddress))
 			{
 				return user;
 			}

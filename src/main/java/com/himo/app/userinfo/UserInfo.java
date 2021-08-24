@@ -47,7 +47,7 @@ public class UserInfo implements Serializable
 
 	private User callDbAndAuthenticateUser(String mailAddress, String password)
 	{
-		User user = userService.getUserByMailAddress(mailAddress);
+		User user = userService.getUserByUserName(mailAddress);
 
 		if (encoder.matches(password, user.getPassword()))
 		{
