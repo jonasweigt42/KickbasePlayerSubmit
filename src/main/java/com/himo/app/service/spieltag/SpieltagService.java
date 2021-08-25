@@ -7,5 +7,9 @@ import com.himo.app.entity.spieltag.Spieltag;
 public interface SpieltagService {
 
 	List<Spieltag> findAll();
+	
+	Spieltag findByName(String name);
+	
+	Spieltag findById(int id);
 
 }

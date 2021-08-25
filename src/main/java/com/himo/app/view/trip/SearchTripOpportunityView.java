@@ -59,7 +59,7 @@ public class SearchTripOpportunityView extends VerticalLayout
 			H4 label = new H4();
 			MultiselectComboBox<String> select = new MultiselectComboBox<>();
 
-			Button letsGo = new Button(TextConstants.LETSGO);
+			Button letsGo = new Button(TextConstants.ABGABE);
 			add(label, select, letsGo);
 		} else
 		{

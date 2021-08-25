@@ -1,6 +1,7 @@
 package com.himo.app.service.spieltag;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 
@@ -27,6 +28,28 @@ public class SpieltagServiceImpl implements SpieltagService
 	public List<Spieltag> findAll()
 	{
 		return dao.findAll();
+	}
+
+	@Override
+	public Spieltag findByName(String name)
+	{
+		Optional<Spieltag> found = findAll().stream().filter(s -> s.getName().equals(name)).findFirst();
+		if (found.isPresent())
+		{
+			return found.get();
+		}
+		return null;
+	}
+
+	@Override
+	public Spieltag findById(int id)
+	{
+		Optional<Spieltag> found = findAll().stream().filter(s -> s.getId() == id).findFirst();
+		if (found.isPresent())
+		{
+			return found.get();
+		}
+		return null;
 	}
 
 }

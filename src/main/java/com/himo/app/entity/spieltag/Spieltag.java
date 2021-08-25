@@ -1,6 +1,7 @@
 package com.himo.app.entity.spieltag;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,7 +21,17 @@ public class Spieltag implements Serializable{
 	private int id;
 	@Column
 	private String name;
+	@Column
+	private LocalDateTime startDateTime;
 	
+	public LocalDateTime getStartDateTime()
+	{
+		return startDateTime;
+	}
+	public void setStartDateTime(LocalDateTime startDateTime)
+	{
+		this.startDateTime = startDateTime;
+	}
 	public String getName()
 	{
 		return name;
@@ -29,5 +40,10 @@ public class Spieltag implements Serializable{
 	{
 		this.name = name;
 	}
+	public int getId()
+	{
+		return id;
+	}
+	
 
 }

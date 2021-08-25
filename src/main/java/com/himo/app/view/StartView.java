@@ -1,11 +1,14 @@
 package com.himo.app.view;
 
+import java.time.LocalDateTime;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.himo.app.constants.TextConstants;
+import com.himo.app.entity.spieltag.Spieltag;
 import com.himo.app.entity.submit.PlayerSubmit;
 import com.himo.app.entity.user.User;
 import com.himo.app.service.spieltag.SpieltagService;
@@ -15,6 +18,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.H4;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -44,7 +48,10 @@ public class StartView extends VerticalLayout
 	private PlayerSubmitService playerSubmitService;
 
 	private ComboBox<String> select = new ComboBox<>();
-	private TextField player = new TextField();
+	private TextField spieler = new TextField();
+	private Label abgabeFrist = new Label();
+	private Label fristZeit = new Label();
+	private Button abgabeButton = new Button(TextConstants.ABGABE);
 
 	private static final String SAISON = "2021/2022";
 
@@ -73,12 +80,13 @@ public class StartView extends VerticalLayout
 			label.setText("Hi " + user.getUserName() + "! Submitte mal");
 			select.setItems(spieltagService.findAll().stream().map(s -> s.getName()));
 			select.setLabel("Spieltag");
-			select.addValueChangeListener(evt -> fillPlayerLabel());
-			player.setLabel("Spielername");
+			select.addValueChangeListener(evt -> calcLabels());
+			spieler.setLabel("Spielername");
+			abgabeFrist.setText("Abgabefrist: ");
 
-			Button letsGo = new Button(TextConstants.LETSGO);
-			letsGo.addClickListener(evt -> saveSubmit(player.getValue(), select.getValue()));
-			add(label, select, player, letsGo);
+			abgabeButton.addClickListener(evt -> saveSubmit());
+			abgabeButton.setEnabled(false);
+			add(label, select, abgabeFrist, fristZeit, spieler, abgabeButton);
 
 		} else
 		{
@@ -87,36 +95,75 @@ public class StartView extends VerticalLayout
 		return label;
 	}
 
-	private void fillPlayerLabel()
+	private void calcLabels()
 	{
 		PlayerSubmit submit = playerSubmitService.find(userInfo.getLoggedInUser().getUserName(), select.getValue(),
 				SAISON);
-		if (submit != null)
+		Spieltag spieltag = spieltagService.findByName(select.getValue());
+		if (spieltag == null)
 		{
-			player.setValue(submit.getPlayerName());
+			fristZeit.setText("");
+			abgabeButton.setEnabled(false);
 		} else
 		{
-			player.setValue("");
+			LocalDateTime frist = spieltag.getStartDateTime();
+
+			fristZeit.setText(formatFristDate(frist));
+			fillComboBox(submit);
+			enableSubmitButton(frist);
 		}
 	}
 
-	private void saveSubmit(String spielerName, String spieltag)
+	private void fillComboBox(PlayerSubmit submit)
 	{
-		PlayerSubmit existingSubmit = playerSubmitService.find(userInfo.getLoggedInUser().getUserName(), spieltag,
-				SAISON);
-		if(existingSubmit != null)
+		if (submit != null)
+		{
+			spieler.setValue(submit.getPlayerName());
+		} else
+		{
+			spieler.setValue("");
+		}
+	}
+
+	private void enableSubmitButton(LocalDateTime frist)
+	{
+		if (LocalDateTime.now().isAfter(frist))
+		{
+			abgabeButton.setEnabled(false);
+		} else
+		{
+			abgabeButton.setEnabled(true);
+		}
+	}
+
+	private String formatFristDate(LocalDateTime localDateTime)
+	{
+		int tag = localDateTime.getDayOfMonth();
+		int month = localDateTime.getMonthValue();
+		int year = localDateTime.getYear();
+		int hour = localDateTime.getHour();
+		int minute = localDateTime.getMinute();
+		return tag + "." + month + "." + year + ", " + hour + ":" + minute + "Uhr";
+	}
+
+	private void saveSubmit()
+	{
+		String spielerName = spieler.getValue();
+		Spieltag spieltag = spieltagService.findByName(select.getValue());
+		PlayerSubmit existingSubmit = playerSubmitService.find(userInfo.getLoggedInUser().getUserName(),
+				spieltag.getName(), SAISON);
+		if (existingSubmit != null)
 		{
 			existingSubmit.setPlayerName(spielerName);
 			playerSubmitService.update(existingSubmit);
-		}
-		else
+		} else
 		{
-			PlayerSubmit newSubmit = createSubmit(spielerName, spieltag);
+			PlayerSubmit newSubmit = createSubmit(spielerName, spieltag.getName());
 			playerSubmitService.save(newSubmit);
-			Notification.show(spielerName + " für Spieltag " + spieltag + " submitted");
+			Notification.show(spielerName + " für Spieltag " + spieltag.getName() + " submitted");
 		}
-		
-		player.clear();
+
+		spieler.clear();
 		select.clear();
 	}
 

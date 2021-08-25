@@ -44,7 +44,7 @@ public class ProvideTripOpportunityView extends VerticalLayout
 			H4 label = new H4();
 			ComboBox<String> select = new ComboBox<>();
 
-			Button letsGo = new Button(TextConstants.LETSGO);
+			Button letsGo = new Button(TextConstants.ABGABE);
 
 			TextField takePeople = new TextField("Freie Plätze");
 			add(label, select, takePeople, letsGo);

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import com.himo.app.constants.TextConstants;
 import com.himo.app.entity.submit.PlayerSubmit;
 import com.himo.app.entity.user.User;
-import com.himo.app.service.submit.PlayerSubmitService;
+import com.himo.app.service.stats.StatsService;
 import com.himo.app.userinfo.UserInfo;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.grid.Grid;
@@ -31,7 +31,7 @@ public class StatsView extends VerticalLayout
 	private UserInfo userInfo;
 
 	@Autowired
-	private PlayerSubmitService playerSubmitService;
+	private StatsService statsService;
 	
 	@PostConstruct
 	public void init()
@@ -51,7 +51,7 @@ public class StatsView extends VerticalLayout
 			grid.addColumn(PlayerSubmit::getPlayerName).setHeader("Spielername").setSortable(true);
 			grid.addColumn(PlayerSubmit::getPunkte).setHeader("Punkte").setSortable(true);
 			grid.addThemeVariants(GridVariant.LUMO_COLUMN_BORDERS, GridVariant.LUMO_ROW_STRIPES);
-			grid.setItems(playerSubmitService.findAll());
+			grid.setItems(statsService.getAllBeforeNow());
 			add(grid);
 		} else
 		{

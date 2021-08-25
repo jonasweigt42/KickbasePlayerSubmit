@@ -72,7 +72,7 @@ public class SearchTripView extends VerticalLayout
 		Button nowButton = new Button("jetzt");
 		nowButton.addClickListener(evt -> setTimeValuesForNow(datePicker, timePicker));
 
-		Button letsGoButton = new Button(TextConstants.LETSGO);
+		Button letsGoButton = new Button(TextConstants.ABGABE);
 
 		letsGoButton.addClickListener(evt -> saveAndNavigate(start.getValue(), dest.getValue(), datePicker.getValue(),
 				timePicker.getValue()));
