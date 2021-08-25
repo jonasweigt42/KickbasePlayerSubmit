@@ -40,7 +40,7 @@ import com.vaadin.flow.theme.lumo.Lumo;
  * tab/window.
  */
 
-@PWA(name = "Kickbase Player Submit", shortName = "K Submit")
+@PWA(name = "Kickbase Player Submit", shortName = "K Submit", iconPath = "icons/icon.png")
 @JsModule("./styles/shared-styles.js")
 @CssImport("./styles/shared-styles.css")
 @Theme(value = Lumo.class, variant = Lumo.LIGHT)
