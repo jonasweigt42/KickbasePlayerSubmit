@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.himo.app.component.Login;
 import com.himo.app.component.Logo;
+import com.himo.app.view.trip.DebugView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -86,6 +87,7 @@ public class MainView extends AppLayout
 		tabs.add(createTab("Spieler Submit", StartView.class));
 		tabs.add(createTab("Profil", ProfileView.class));
 		tabs.add(createTab("Statistiken", StatsView.class));
+		//tabs.add(createTab("Debug", DebugView.class));
 		return tabs.toArray(new Tab[tabs.size()]);
 	}
 
